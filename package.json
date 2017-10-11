@@ -24,7 +24,7 @@
     "yarn": "1.2.0"
   },
   "dependencies": {
-    "invariant": "^2.2.2",
+    "invariant": "2.2.2",
     "warning": "3.0.0"
   }
 }
