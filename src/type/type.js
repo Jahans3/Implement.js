@@ -32,9 +32,10 @@ export default (type, shape) => {
   }
 
   if (validType === 'array') {
-    const invalidElement = Array.isArray(shape) && shape.find(t => (!t[IMPLEMENTS_TYPES.TYPE] && !t[IMPLEMENTS_TYPES.INTERFACE]))
+    const shapeIsArray = Array.isArray(shape)
+    const invalidArrayElement = shapeIsArray && shape.find(t => (!t[IMPLEMENTS_TYPES.TYPE] && !t[IMPLEMENTS_TYPES.INTERFACE]))
 
-    if (invalidElement) {
+    if (!shapeIsArray || invalidArrayElement) {
       invalidArrayElementError.throw()
     }
 
