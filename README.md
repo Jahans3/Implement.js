@@ -40,11 +40,20 @@ interface(objectArg[, options]) -> Interface
 Options
 ```
 {
-    strict: true, // when true, errors and warnings are triggered when properties other than those on the interface are found, is suppressed if trim is set to true - default: false
-    trim: true, // remove methods that don’t match the interface - default: false
-    errors: true, // throws an error when interface isn’t implemented - default: false
-    warnings: false, // warns when interface isn’t implemented, provides stack trace - default: true
-    extend: Interface // accepts an interface to extend, the new interface must also implement the extended interface
+    // when true, errors and warnings are triggered when properties other than those on the interface are found, is suppressed if trim is set to true - default: false
+    strict: true,
+
+    // remove methods that don’t match the interface - default: false
+    trim: true,
+
+    // throws an error when interface isn’t implemented - default: false
+    errors: true,
+
+    // warns when interface isn’t implemented, provides stack trace - default: true
+    warnings: false,
+
+    // accepts an interface to extend, the new interface must also implement the extended interface
+    extend: Interface
 }
 ```
 
