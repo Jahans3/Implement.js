@@ -1,0 +1,24 @@
+{
+  "name": "implements",
+  "version": "0.0.0",
+  "description": "JavaScript interface library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jahans3/implements.git"
+  },
+  "keywords": [
+    "interface",
+    "javascript",
+    "library"
+  ],
+  "author": "Josh Jahans",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jahans3/implements/issues"
+  },
+  "homepage": "https://github.com/Jahans3/implements#readme"
+}
