@@ -5,7 +5,7 @@ WIP
 * Create Java-like interfaces for classes or objects
 * Effortlessly and safely parse API responses
 
-###### What is Implements?
+###### What is Implements.js?
 Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface, and call `implements` on a class or object to ensure it implements the given interface.
 ```
 class Hello {
@@ -19,6 +19,10 @@ const Introduction = interface({
 
 const HelloIntroduction = implements(Introduction)(Hello) // throws an error!
 ```
+
+###### Why use Implements.js?
+
+todo
 
 ## API
 
