@@ -139,7 +139,7 @@ const updateUsers = () => dispatch => {
         store.dispatch(updateUsersSuccess(MyUsers))
     })
     .catch(err => {
-        const MyErrorRes = implements(ErrorRes)
+        const MyErrorRes = implements(ErrorRes)(err)
         store.dispatch(updateUsersError(MyErrorRes))
     })
 }
