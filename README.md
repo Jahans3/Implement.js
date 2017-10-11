@@ -35,7 +35,7 @@ implements(Interface)(object|class) -> object|class
 ### Interface
 Accepts an object, where all the keys are Type objects, and returns an Interface. The Interface is to be used by Implements.
 ```
-interface(objectArg[, options]) -> Interface
+interface(object[, options]) -> Interface
 ```
 Options
 ```
