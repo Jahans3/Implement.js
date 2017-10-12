@@ -1,7 +1,7 @@
 import { IMPLEMENTS_TYPES} from "../constants"
 import { invalidTypeError, invalidArrayElementError, invalidShapeError } from "../errors"
 
-const validTypes = ['number', 'object', 'string', 'symbol', 'function', 'boolean', 'array']
+const validTypes = ['number', 'object', 'string', 'symbol', 'function', 'boolean', 'array', 'any']
 
 const isValidType = ({ type }) => {
   const validType = validTypes.find(t => t === type)

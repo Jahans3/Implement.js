@@ -1,5 +1,4 @@
-import invariant from 'invariant'
-import warning from 'warning'
+import { invariant, warning } from './utils'
 
 export const invalidTypeError = new (function () {
   this.message = ({ type }) => (`
