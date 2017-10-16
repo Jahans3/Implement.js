@@ -1,10 +1,9 @@
 import { IMPLEMENTS_TYPES} from "../constants"
 import { invalidTypeError, invalidArrayElementError, invalidShapeError } from "../errors"
-
-const validTypes = ['number', 'object', 'string', 'symbol', 'function', 'boolean', 'array', 'any']
+import { VALID_TYPES } from '../constants'
 
 const isValidType = ({ type }) => {
-  const validType = validTypes.find(t => t === type)
+  const validType = VALID_TYPES.find(t => t === type)
 
   if (validType) {
     return validType
@@ -13,7 +12,7 @@ const isValidType = ({ type }) => {
   return false
 }
 
-const typeObject = ({ type, array = false, Interface = false }) => ({
+const typeObject = ({ type, array = false, Interface = false } = {}) => ({
   type,
   array,
   Interface,

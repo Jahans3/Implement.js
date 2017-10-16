@@ -1,5 +1,17 @@
 import { invariant, warning } from './utils'
 
+export const invalidObjectError = new (function () {
+  this.message = () => 'Invalid object given as Interface property, must be a valid type() object.'
+  this.warn = () => {
+    warning(false, this.message())
+  }
+  this.throw = () => {
+    invariant(false, this.message())
+  }
+
+  return this
+})()
+
 export const invalidTypeError = new (function () {
   this.message = ({ type }) => (`
     Invalid type: '${type}' passed to type().
