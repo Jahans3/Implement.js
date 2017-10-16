@@ -1,14 +1,14 @@
 import { IMPLEMENTS_TYPES, VALID_TYPES } from "../constants"
-import { invalidInterfaceError } from "../errors"
+import * as error from "../error"
 
-export default (Interface = {}, { error = false, warn = false, trim = false } = {}) => {
+export default (Interface = {}, { error: shouldThrow = false, warn = false, trim = false } = {}) => {
   for (let property in Interface) {
     if (Interface.hasOwnProperty(property)) {
       const { [IMPLEMENTS_TYPES.TYPE]: isType = false } = property
 
       if (!isType) {
-        if (error) invalidInterfaceError.throw()
-        if (warn) invalidInterfaceError.warn()
+        if (shouldThrow) error.invalidInterface.throw()
+        if (warn) error.invalidInterface.warn()
       }
     }
   }
