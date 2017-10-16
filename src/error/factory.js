@@ -14,17 +14,15 @@ class ErrorFactory {
 
     if (messageType === 'string') {
       return this._message = () => message
-    } else if (messageType === 'function') {
-      const returnType = typeof message()
-
-      if (returnType !== 'string') {
-        throw Error(`Implements: errorFactory: message arg must be string or function that returns a string, instead got: ${messageType}`)
-      }
-    } else {
-      throw Error(`Implements: errorFactory: message arg must be string or function that returns a string, instead got: ${messageType}`)
+    } else if (messageType === 'function' && typeof message() === 'string') {
+      return this._message = message
     }
 
-    this._message = message
+    ErrorFactory._error(messageType)
+  }
+
+  static _error (type = '') {
+    invariant(false, `Implements: errorFactory: message arg must be string or function that returns a string, instead got: ${type}`)
   }
 
   warn (...args) {
