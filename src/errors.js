@@ -1,38 +1,46 @@
 import { invariant, warning } from './utils'
 
-const applyLogs = context => {
-  if (!context.message) context.message = () => {}
+const messageFactory = ({ message } = {}) => {
+  const messageType = typeof message
 
-  context['warn'] = (...args) => {
-    warning(false, context.message(...args))
+  if (messageType === 'string') {
+    message = () => message
+  } else if (messageType !== 'function') {
+    const returnType = typeof message()
+
+    if (returnType !== 'string') {
+      throw Error(`Implements: errorFactory: message arg must be string or function that returns a string, instead got: ${messageType}`)
+    }
+  } else {
+    throw Error(`Implements: errorFactory: message arg must be string or function that returns a string, instead got: ${messageType}`)
   }
-  context['throw'] = (...args) => {
-    invariant(false, context.message(...args))
-  }
+
+  return message
 }
 
-export const invalidObjectError = new (function () {
-  this.message = () => 'Invalid object given as Interface property, must be a valid type() object.'
-  return applyLogs(this)
+const errorFactory = ({ message } = {}) => new (function () {
+  this.message = messageFactory({ message })
+  this.warn = (...args) => { warning(false, this.message(...args)) }
+  this.throw = (...args) => { invariant(false, this.message(...args)) }
+  return this
 })()
 
-export const invalidTypeError = new (function () {
-  this.message = ({ type }) => (`
+export const invalidObjectError = errorFactory({ message: 'Invalid object given as Interface property, must be a valid type() object.' })
+
+export const invalidTypeError = errorFactory({
+  message: ({ type } = {}) => (`
     Invalid type: '${type}' passed to type().
     Must be one of 'number', 'object', 'string', 'symbol', 'function', 'boolean', or 'array'.
   `)
-  return applyLogs(this)
-})()
+})
 
-export const invalidArrayElementError = new (function () {
-  this.message = () => (`
+export const invalidArrayElementError = errorFactory({
+  message: (`
     Shape is not an array or an invalid was element given as a type shape.
     Elements must be a valid type() or Interface().
   `)
-  return applyLogs(this)
-})()
+})
 
-export const invalidShapeError = new (function () {
-  this.message = 'Invalid object given as a type shape, must be a valid Interface().'
-  return applyLogs(this)
-})()
+export const invalidShapeError = errorFactory({
+  message: 'Invalid object given as a type shape, must be a valid Interface().'
+})
