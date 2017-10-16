@@ -23,7 +23,7 @@ export default (type, shape) => {
   const validType = isValidType({ type })
 
   if (!validType) {
-    return error.invalidType.throw({ type })
+    return error.InvalidType.throw({ type })
   }
 
   if (validType && !shape) {
@@ -35,7 +35,7 @@ export default (type, shape) => {
     const invalidArrayElement = shapeIsArray && shape.find(t => (!t[IMPLEMENTS_TYPES.TYPE] && !t[IMPLEMENTS_TYPES.INTERFACE]))
 
     if (!shapeIsArray || invalidArrayElement) {
-      error.invalidArrayElement.throw()
+      error.InvalidArrayElement.throw()
     }
 
     return typeObject({ type, array: shape })
@@ -45,7 +45,7 @@ export default (type, shape) => {
     const isInterface = shape[IMPLEMENTS_TYPES.INTERFACE]
 
     if (!isInterface) {
-      error.invalidShape.throw()
+      error.InvalidShape.throw()
     }
 
     return typeObject({ type, shape })
