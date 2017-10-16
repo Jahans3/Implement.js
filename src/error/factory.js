@@ -22,7 +22,7 @@ export default class ErrorFactory {
   }
 
   static _error (type = '') {
-    invariant(false, `Implements: errorFactory: message arg must be string or function that returns a string, instead got: ${type}`)
+    invariant(false, `Implements: ErrorFactory: message arg must be string or function that returns a string, instead got: ${type}`)
   }
 
   warn (...args) {
