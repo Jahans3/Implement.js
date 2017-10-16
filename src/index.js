@@ -8,5 +8,9 @@ import Interface from './Interface'
 
 const Car = Interface({
   colour: type('string'),
-
+  doors: type('number')
+}, {
+  error: true
 })
+
+console.log(Car)

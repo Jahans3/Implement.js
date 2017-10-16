@@ -1,5 +1,5 @@
 import { IMPLEMENTS_TYPES} from "../constants"
-import * as error from "../error"
+import * as errors from "../error"
 import { VALID_TYPES } from '../constants'
 
 const isValidType = ({ type }) => {
@@ -23,7 +23,7 @@ export default (type, shape) => {
   const validType = isValidType({ type })
 
   if (!validType) {
-    return error.InvalidType.throw({ type })
+    return errors.InvalidType.throw({ type })
   }
 
   if (validType && !shape) {
@@ -35,7 +35,7 @@ export default (type, shape) => {
     const invalidArrayElement = shapeIsArray && shape.find(t => (!t[IMPLEMENTS_TYPES.TYPE] && !t[IMPLEMENTS_TYPES.INTERFACE]))
 
     if (!shapeIsArray || invalidArrayElement) {
-      error.InvalidArrayElement.throw()
+      errors.InvalidArrayElement.throw()
     }
 
     return typeObject({ type, array: shape })
@@ -45,7 +45,7 @@ export default (type, shape) => {
     const isInterface = shape[IMPLEMENTS_TYPES.INTERFACE]
 
     if (!isInterface) {
-      error.InvalidShape.throw()
+      errors.InvalidShape.throw()
     }
 
     return typeObject({ type, shape })
