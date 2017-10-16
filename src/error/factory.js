@@ -5,7 +5,7 @@ const messageFactory = ({ message } = {}) => {
 
   if (messageType === 'string') {
     message = () => message
-  } else if (messageType !== 'function') {
+  } else if (messageType === 'function') {
     const returnType = typeof message()
 
     if (returnType !== 'string') {
