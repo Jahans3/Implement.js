@@ -10,7 +10,8 @@ TODO
 
 1. interface function
 2. enum type
-3. unit tests
+3. extend interfaces
+4. unit tests
 
 ###### What is Implements.js?
 Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface, and call `implements` on a class or object to ensure it implements the given interface.
@@ -54,10 +55,10 @@ Options
     trim: true,
 
     // throws an error when interface isn’t implemented - default: false
-    errors: true,
+    error: true,
 
     // warns when interface isn’t implemented, provides stack trace - default: true
-    warnings: false,
+    warn: false,
 
     // accepts an interface to extend, the new interface must also implement the extended interface
     extend: Interface
