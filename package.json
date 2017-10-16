@@ -22,8 +22,6 @@
   },
   "homepage": "https://github.com/Jahans3/implements#readme",
   "devDependencies": {
-    "fs-extra": "4.0.2",
-    "inquirer": "3.3.0",
     "webpack": "3.7.0",
     "yarn": "1.2.0"
   },
