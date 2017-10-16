@@ -1,4 +1,4 @@
-# Implements.js
+# Implement.js
 
 WIP
 
@@ -14,7 +14,7 @@ TODO
 4. unit tests
 
 ###### What is Implements.js?
-Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface, and call `implements` on a class or object to ensure it implements the given interface.
+Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface, and call `implements` on a class or object to ensure it implement the given interface.
 ```
 class Hello {
     greeting = 'hello'
@@ -25,7 +25,7 @@ const Introduction = interface({
     handshake: type('function')
 }, { error: true })
 
-const HelloIntroduction = implements(Introduction)(Hello) // throws an error!
+const HelloIntroduction = implement(Introduction)(Hello) // throws an error!
 ```
 
 ###### Why use Implements.js?
@@ -35,9 +35,9 @@ todo
 ## API
 
 ### Implements
-Accepts an interface and a class or object, and checks to see if the object implements the given interface
+Accepts an interface and a class or object, and checks to see if the object implement the given interface
 ```
-implements(Interface)(object|class) -> object|class
+implement(Interface)(object|class) -> object|class
 ```
 
 ### Interface
@@ -79,7 +79,7 @@ type(string[, Array<type|interface>|interface]) -> Type
 
 ##### Class Example:
 ```
-import implements, { interface, type } from ‘implements’
+import implement, { interface, type } from ‘implement’
 
 const Passenger = interface({
     name: type(‘string’),
@@ -100,7 +100,7 @@ const Car = interface({
     error: true
 })
 
-const MyCar = implements(Car)(class {
+const MyCar = implement(Car)(class {
     speed = 0
     passengers = []
 
@@ -108,7 +108,7 @@ const MyCar = implements(Car)(class {
 })
 
 // throws error
-const OtherCar = implements(Car)(class {
+const OtherCar = implement(Car)(class {
     speed = 0
 })
 ```
@@ -117,7 +117,7 @@ const OtherCar = implements(Car)(class {
 ```
 import { store } from ‘../store’
 import { fetchUsers } from ‘../services/userService’
-import implements, { interface, type } from ‘implements’
+import implement, { interface, type } from ‘implement’
 
 const User = interface({
     name: type(‘string’),
@@ -142,11 +142,11 @@ const updateUsers = () => dispatch => {
     dispatch(fetchUsers())
 
     fetchUsers().then(res => {
-        const MyUsers = implements(Users)(res)
+        const MyUsers = implement(Users)(res)
         store.dispatch(updateUsersSuccess(MyUsers))
     })
     .catch(err => {
-        const MyErrorRes = implements(ErrorRes)(err)
+        const MyErrorRes = implement(ErrorRes)(err)
         store.dispatch(updateUsersError(MyErrorRes))
     })
 }
@@ -155,7 +155,7 @@ const updateUsers = () => dispatch => {
 ##### With Redux reducers:
 ```
 import { fetchUsers } from ‘../services/userService’
-import implements, { interface, type } from ‘implements’
+import implement, { interface, type } from ‘implement’
 
 const SomeAction = interface({
     some: type(‘string’),
@@ -170,7 +170,7 @@ const initialState = {
 export default (state = initialState, action) => {
     switch(action.type) {
         case SOME_ACTION:
-            return implements(SomeAction)({
+            return implement(SomeAction)({
                 …state,
                 …action.payload
             })

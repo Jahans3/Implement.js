@@ -1,15 +1,15 @@
 {
-  "name": "implements",
+  "name": "implement",
   "version": "0.0.0",
   "description": "JavaScript interface library",
-  "main": "lib/implements.js",
+  "main": "lib/implement.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "build-production": "NODE_ENV='production' webpack --config webpack.config.js",
     "postinstall": "rm -rf lib/ && webpack --config webpack.config.js"
   },
-  "repository": "git+https://github.com/Jahans3/implements.git",
+  "repository": "git+https://github.com/Jahans3/implement.git",
   "keywords": [
     "interface",
     "javascript",
@@ -18,9 +18,9 @@
   "author": "Josh Jahans",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Jahans3/implements/issues"
+    "url": "https://github.com/Jahans3/implement/issues"
   },
-  "homepage": "https://github.com/Jahans3/implements#readme",
+  "homepage": "https://github.com/Jahans3/implement#readme",
   "devDependencies": {
     "webpack": "3.7.0",
     "yarn": "1.2.0"
