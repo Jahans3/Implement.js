@@ -1,6 +1,5 @@
 const path = require('path')
 const { DefinePlugin } = require('webpack')
-// const env = require('./env')
 
 module.exports = {
   entry: './src/index.js',
@@ -11,7 +10,7 @@ module.exports = {
   plugins: [
     new DefinePlugin({
       'process.env': {
-        NODE_ENV: "'production'"
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
     })
   ]
