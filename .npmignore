@@ -1,0 +1,9 @@
+# Files
+webpack.config.js
+.gitignore
+
+# Directories
+.src/
+node_modules/
+!lib/
+test/
