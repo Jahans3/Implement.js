@@ -1,6 +1,6 @@
 import { invariant, warning } from '../utils/index'
 
-class ErrorFactory {
+export default class ErrorFactory {
   constructor({ message }) {
     this.message = message
   }
@@ -33,5 +33,3 @@ class ErrorFactory {
     invariant(false, this.message(...args))
   }
 }
-
-export default ({ message } = {}) => new ErrorFactory({ message })
