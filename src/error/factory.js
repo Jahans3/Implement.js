@@ -13,7 +13,7 @@ class ErrorFactory {
     const messageType = typeof message
 
     if (messageType === 'string') {
-      message = () => message
+      return this._message = () => message
     } else if (messageType === 'function') {
       const returnType = typeof message()
 
