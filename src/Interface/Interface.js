@@ -1,5 +1,5 @@
 import { IMPLEMENTS_TYPES, VALID_TYPES } from "../constants"
-import { invalidObjectError } from "../errors"
+import { invalidInterfaceError } from "../errors"
 
 export default (Interface = {}, { error = false, warn = false, trim = false } = {}) => {
   for (let property in Interface) {
@@ -7,9 +7,8 @@ export default (Interface = {}, { error = false, warn = false, trim = false } = 
       const { [IMPLEMENTS_TYPES.TYPE]: isType = false } = property
 
       if (!isType) {
-        if (error) invalidObjectError.throw()
-        if (warn) invalidObjectError.warn()
-        if (trim) delete Interface[property]
+        if (error) invalidInterfaceError.throw()
+        if (warn) invalidInterfaceError.warn()
       }
     }
   }

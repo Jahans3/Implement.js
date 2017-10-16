@@ -25,7 +25,7 @@ const errorFactory = ({ message } = {}) => new (function () {
   return this
 })()
 
-export const invalidObjectError = errorFactory({ message: 'Invalid object given as Interface property, must be a valid type() object.' })
+export const invalidInterfaceError = errorFactory({ message: 'Invalid object given as Interface property, must be a valid type() object.' })
 
 export const invalidTypeError = errorFactory({
   message: ({ type } = {}) => (`
