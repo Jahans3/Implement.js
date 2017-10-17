@@ -26,7 +26,7 @@ const ford = {
   colour: 'blue',
   doors: 4,
   wheels: 'alloy',
-  Seat: { colour: 'red', height: 2 }
+  Seat: { colour: 'red', height: '2' }
 }
 
 const FordCar = implement(Car)(ford)

@@ -39,7 +39,7 @@ const implement = Interface => object => {
       if (interfaceType && !NestedInterface) {
         implementType(object, prop, Interface, { warn, error })
       } else if (NestedInterface) {
-        implement(NestedInterface)(object)
+        implement(NestedInterface)(object[prop])
       }
     }
   }
