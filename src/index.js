@@ -30,5 +30,3 @@ const ford = {
 }
 
 const FordCar = implement(Car)(ford)
-
-console.log(FordCar)

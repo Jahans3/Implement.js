@@ -7,7 +7,7 @@ const implementType = (
   { [property]: { type: expectedType }, [IMPLEMENT_TYPES.NAME]: interfaceName },
   { warn = true, error = false }
 ) => {
-  const type = typeof property
+  const type = typeof object[property]
 
   if (type !== expectedType) {
     warn && errors.InvalidTypeImplementation.warn({
