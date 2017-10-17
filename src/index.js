@@ -7,9 +7,17 @@ import type from './type'
 import Interface from './Interface'
 import implement from './implement'
 
+const Seat = Interface('Seat')({
+  colour: type('string'),
+  height: type('number')
+}, {
+  error: true
+})
+
 const Car = Interface('Car')({
   colour: type('string'),
-  doors: type('number')
+  doors: type('number'),
+  Seat: type('object', Seat)
 }, {
   error: true
 })
@@ -17,7 +25,8 @@ const Car = Interface('Car')({
 const ford = {
   colour: 'blue',
   doors: 4,
-  wheels: 'alloy'
+  wheels: 'alloy',
+  Seat: { colour: 'red', height: 2 }
 }
 
 const FordCar = implement(Car)(ford)

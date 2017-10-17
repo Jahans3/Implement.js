@@ -13,6 +13,7 @@ export default (interfaceName = uuid()) => (Interface = {}, { strict = false, er
     }
   }
 
+  Interface[IMPLEMENT_TYPES.INTERFACE] = true
   Interface[IMPLEMENT_TYPES.OPTIONS] = { strict, error, warn, trim }
   Interface[IMPLEMENT_TYPES.NAME] = interfaceName
 

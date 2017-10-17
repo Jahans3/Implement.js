@@ -26,9 +26,8 @@ const implement = Interface => object => {
 
   for (let prop in object) {
     if (object.hasOwnProperty(prop)) {
-      const interfaceProp = Interface[prop]
-      const interfaceType = interfaceProp && interfaceProp[IMPLEMENT_TYPES.TYPE]
-      const NestedInterface = interfaceProp && interfaceProp[IMPLEMENT_TYPES.INTERFACE]
+      const { [prop]: interfaceProp = {} } = Interface
+      const { Interface: NestedInterface, [IMPLEMENT_TYPES.TYPE]: interfaceType } = interfaceProp
 
       if (!interfaceProp) {
         // if (strict && !trim) throw errors
@@ -37,12 +36,10 @@ const implement = Interface => object => {
         // determine whether or not to throw errors
       }
 
-      if (interfaceType) {
-        // check type is implemented correctly
+      if (interfaceType && !NestedInterface) {
         implementType(object, prop, Interface, { warn, error })
       } else if (NestedInterface) {
-        const nestedProperty = object[prop]
-        implement(NestedInterface)(nestedProperty)
+        implement(NestedInterface)(object)
       }
     }
   }

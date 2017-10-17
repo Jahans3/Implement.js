@@ -12,7 +12,7 @@ const isValidType = ({ type }) => {
   return false
 }
 
-const typeObject = ({ type, array = false, Interface = false } = {}) => ({
+const typeObject = ({ type, array = false, shape: Interface = false } = {}) => ({
   type,
   array,
   Interface,
