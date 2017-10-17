@@ -24,8 +24,6 @@ const implement = Interface => object => {
 
   const { [IMPLEMENT_TYPES.OPTIONS]: { strict = false, trim = false, warn = true, error = false } = {} } = Interface
 
-  // iterate over object properties and see if the interface is implemented
-
   for (let prop in object) {
     if (object.hasOwnProperty(prop)) {
       const interfaceProp = Interface[prop]
