@@ -1,7 +1,7 @@
 import { invariant, warning } from '../utils/index'
 
 export default class ErrorFactory {
-  constructor({ message }) {
+  constructor ({ message }) {
     this.message = message
   }
 
