@@ -7,7 +7,7 @@ import type from './type'
 import Interface from './Interface'
 import implement from './implement'
 
-const Car = Interface({
+const Car = Interface('Car')({
   colour: type('string'),
   doors: type('number')
 }, {

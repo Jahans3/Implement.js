@@ -1,9 +1,9 @@
 import ErrorFactory from "./factory"
 
 export const InvalidTypeImplementation = new ErrorFactory({
-  message: ({ objectName, interfaceName, type, property, expectedType } = {}) => (`
-    Object: ${objectName} failed to implement interface: ${interfaceName}.
-    Invalid type: ${type} given to ${property}, expected: ${expectedType}.
+  message: ({ interfaceName, type, property, expectedType } = {}) => (`
+    Failed to implement interface: '${interfaceName}'.
+    Invalid type: '${type}' given to property: '${property}', expected: '${expectedType}'.
   `)
 })
 
