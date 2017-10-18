@@ -8,8 +8,9 @@ const getType = property => {
 }
 
 const implementTypedArray = (array, arrayTypes, ...rest) => {
+  const { error, warn, strict } = rest
+
   array.map(el => {
-    const { error, warn, strict } = rest
     if ((!el[IMPLEMENT_TYPES.TYPE] || !el[IMPLEMENT_TYPES.INTERFACE]) && strict) {
       error && errors.InvalidArrayElement.throw()
     }
