@@ -24,15 +24,15 @@
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
-    "babel-plugin-transform-es2015-parameters": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-es2015-parameters": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.1",
     "webpack": "3.8.1",
     "yarn": "1.2.0"
   },
   "dependencies": {
     "invariant": "2.2.2",
-    "uuid": "^3.1.0",
+    "uuid": "3.1.0",
     "warning": "3.0.0"
   }
 }
