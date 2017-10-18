@@ -12,7 +12,7 @@ TODO
 2. enum type
 3. extend interfaces
 4. unit tests
-
+5. ensure original object reference is kept
 ###### What is Implements.js?
 Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface, and call `implements` on a class or object to ensure it implement the given interface.
 ```

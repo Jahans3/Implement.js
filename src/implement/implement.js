@@ -1,15 +1,31 @@
 import { IMPLEMENT_TYPES } from "../constants"
 import * as errors from '../errors'
 
+const getType = property => {
+  if (Array.isArray(property)) return 'array'
+
+  return typeof property
+}
+
+const implementTypedArray = (array, arrayTypes, ...rest) => {
+  array.map(el => {
+    const { error, warn, strict } = rest
+    if ((!el[IMPLEMENT_TYPES.TYPE] || !el[IMPLEMENT_TYPES.INTERFACE]) && strict) {
+      error && errors.InvalidArrayElement.throw()
+    }
+  })
+}
+
 const implementType = (
   object,
   property,
-  { [property]: { type: expectedType }, [IMPLEMENT_TYPES.NAME]: interfaceName },
+  Interface,
   { warn = true, error = false }
 ) => {
-  const type = typeof object[property]
+  const { [property]: { type: expectedType, array: arrayTypes } = {}, [IMPLEMENT_TYPES.NAME]: interfaceName } = Interface
+  const type = getType(object[property])
 
-  if (type !== expectedType) {
+  if (type !== expectedType && expectedType !== 'any') {
     warn && errors.InvalidTypeImplementation.warn({
       property,
       interfaceName,
@@ -17,12 +33,14 @@ const implementType = (
       expectedType
     })
   }
+
+  if (type === 'array') {
+    implementTypedArray(object[property], arrayTypes, Interface, { error, warn })
+  }
 }
 
 const implement = Interface => object => {
   if (process.env.NODE_ENV === 'production') return object
-
-  const { [IMPLEMENT_TYPES.OPTIONS]: { strict = false, trim = false, warn = true, error = false } = {} } = Interface
 
   for (let prop in object) {
     if (object.hasOwnProperty(prop)) {
@@ -37,12 +55,14 @@ const implement = Interface => object => {
       }
 
       if (interfaceType && !NestedInterface) {
-        implementType(object, prop, Interface, { warn, error })
+        implementType(object, prop, Interface, Interface[IMPLEMENT_TYPES.OPTIONS])
       } else if (NestedInterface) {
         implement(NestedInterface)(object[prop])
       }
     }
   }
+
+  return object
 }
 
 export default implement

@@ -1,5 +1,12 @@
 import ErrorFactory from "./factory"
 
+export const InvalidArrayElement = new ErrorFactory({
+  message: ({ interfaceName }) => (`
+    Failed to implement interface: '${interfaceName}'.
+    
+  `)
+})
+
 export const InvalidTypeImplementation = new ErrorFactory({
   message: ({ interfaceName, type, property, expectedType } = {}) => (`
     Failed to implement interface: '${interfaceName}'.
@@ -18,9 +25,9 @@ export const InvalidType = new ErrorFactory({
   `)
 })
 
-export const InvalidArrayElement = new ErrorFactory({
+export const InvalidShapeArray = new ErrorFactory({
   message: (`
-    Shape is not an array or an invalid was element given as a type shape.
+    Shape is not an array or an invalid was element given as a shape.
     Elements must be a valid type() or Interface().
   `)
 })
