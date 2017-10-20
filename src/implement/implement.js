@@ -7,18 +7,33 @@ const getType = property => {
   return typeof property
 }
 
-const implementTypedArray = ({ array = [], typedArray = [], Interface, property }) => {
+const implementTypedArray = ({ object = {}, typedArray = [], Interface, property }) => {
   const {
     [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, strict = false } = {},
     [IMPLEMENT_TYPES.NAME]: interfaceName
   } = Interface
+  const array = object[property]
 
-  array.map(el => {
+  // iterate over array
+  // for each element, check if it's valid against at least one of the elements inside typedArray
+  //   catch errors coming out of each attempt to implement a type or interface from the typedArray?
+
+  typedArray.map(el => {
+    const implementsType = el[IMPLEMENT_TYPES.TYPE]
+    const implementsInterface = el[IMPLEMENT_TYPES.INTERFACE]
+
     if ((!el[IMPLEMENT_TYPES.TYPE] || !el[IMPLEMENT_TYPES.INTERFACE]) && strict) {
       error && errors.InvalidArrayElement.throw({
         interfaceName,
         property
       })
+    } else if (implementsType) {
+      // check if this element matches any of the types inside the array
+
+      // for typedArray.length: implementType()
+      implementType({ object: el, property, Interface })
+    } else if (implementsInterface) {
+      // implement()()
     }
   })
 }
@@ -41,7 +56,7 @@ const implementType = ({ object,  property,  Interface } = {}) => {
   }
 
   if (type === 'array') {
-    implementTypedArray({ array: object[property], typedArray, Interface, property })
+    implementTypedArray({ object, typedArray, Interface, property })
   }
 }
 
@@ -65,7 +80,7 @@ const implement = Interface => object => {
       } else if (NestedInterface) {
         implement(NestedInterface)(object[property])
       } else if (typedArray) {
-        implementTypedArray({ array: object[property], typedArray, Interface, property })
+        implementTypedArray({ object, typedArray, Interface, property })
       }
     }
   }
