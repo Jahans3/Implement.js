@@ -23,12 +23,10 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
     const implementsInterface = el[IMPLEMENT_TYPES.INTERFACE]
 
     if ((!el[IMPLEMENT_TYPES.TYPE] || !el[IMPLEMENT_TYPES.INTERFACE]) && strict) {
-      error && errors.InvalidArrayElement.throw({
-        interfaceName,
-        property
-      })
+      const invariant = { interfaceName, property }
+      warn && errors.InvalidArrayElement.warn(invariant)
+      error && errors.InvalidArrayElement.throw(invariant)
     } else if (implementsType) {
-      // check if this element matches any of the types inside the array
       let numberOfFailures = 0
 
       array.map(item => {
@@ -41,6 +39,8 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
 
       if (numberOfFailures >= typedArray.length) {
         // throw error
+        // warn && errors.someError.warn()
+        // error && errors.someError.throw()
       }
 
       // OR
@@ -71,18 +71,9 @@ const implementType = ({ object = {},  property = {},  Interface = {}, parentInt
   const type = getType(object[property])
 
   if (type !== expectedType && expectedType !== 'any') {
-    warn && errors.InvalidTypeImplementation.warn({
-      property,
-      interfaceName,
-      type,
-      expectedType
-    })
-    error && errors.InvalidTypeImplementation.throw({
-      property,
-      interfaceName,
-      type,
-      expectedType
-    })
+    const invariant = { property,  interfaceName,  type,  expectedType }
+    warn && errors.InvalidTypeImplementation.warn(invariant)
+    error && errors.InvalidTypeImplementation.throw(invariant)
   }
 
   if (type === 'array') {

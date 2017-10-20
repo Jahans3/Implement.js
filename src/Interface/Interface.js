@@ -5,8 +5,9 @@ import * as errors from "../errors"
 export default (interfaceName = uuid()) => (Interface = {}, { strict = false, error = false, warn = true, trim = false } = {}) => {
   for (let property in Interface) {
     if (Interface.hasOwnProperty(property)) {
-      const { [IMPLEMENT_TYPES.TYPE]: isType = false } = Interface[property]
+      const { [property]: { [IMPLEMENT_TYPES.TYPE]: isType = false } = {} } = Interface
 
+      // Only allow valid type objects as Interface properties
       if (!isType) {
         errors.InvalidInterface.throw()
       }
