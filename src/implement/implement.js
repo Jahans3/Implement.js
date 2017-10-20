@@ -12,7 +12,7 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
     [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, strict = false } = {},
     [IMPLEMENT_TYPES.NAME]: interfaceName
   } = Interface
-  const array = object[property]
+  const { [property]: array = [] } = object
 
   // iterate over array
   // for each element, check if it's valid against at least one of the elements inside typedArray
@@ -21,11 +21,11 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
   typedArray.map(el => {
     const implementsType = el[IMPLEMENT_TYPES.TYPE]
     const implementsInterface = el[IMPLEMENT_TYPES.INTERFACE]
+    const invalidArrayElementInvariant = { interfaceName, property }
 
     if ((!el[IMPLEMENT_TYPES.TYPE] || !el[IMPLEMENT_TYPES.INTERFACE]) && strict) {
-      const invariant = { interfaceName, property }
-      warn && errors.InvalidArrayElement.warn(invariant)
-      error && errors.InvalidArrayElement.throw(invariant)
+      warn && errors.InvalidArrayElement.warn(invalidArrayElementInvariant)
+      error && errors.InvalidArrayElement.throw(invalidArrayElementInvariant)
     } else if (implementsType) {
       let numberOfFailures = 0
 
@@ -38,9 +38,8 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
       })
 
       if (numberOfFailures >= typedArray.length) {
-        // throw error
-        // warn && errors.someError.warn()
-        // error && errors.someError.throw()
+        warn && errors.InvalidArrayElement.warn(invalidArrayElementInvariant)
+        error && errors.InvalidArrayElement.throw(invalidArrayElementInvariant)
       }
 
       // OR
