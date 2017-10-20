@@ -29,25 +29,55 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
       })
     } else if (implementsType) {
       // check if this element matches any of the types inside the array
+      let numberOfFailures = 0
 
-      // for typedArray.length: implementType()
-      implementType({ object: el, property, Interface })
+      array.map(item => {
+        try {
+          implementType({ object: item, property, Interface: el, parentInterfaceName: interfaceName })
+        } catch (e) {
+          ++numberOfFailures
+        }
+      })
+
+      if (numberOfFailures >= typedArray.length) {
+        // throw error
+      }
+
+      // OR
+      // array.find/reduce => find an element that doesn't error/reduce to a single value: pass/fail
+
+      // for typedArray.length: implementType() {
+      //    try {
+      //      if numbersOfFails >= typedArray.length: fail;
+      //      elseif numberOfFails < typedArray.length: pass;
+      //    } catch (err) {
+      //      ++numberOfFails
+      //    }
+      // }
+      implementType({ object: el, property, Interface: el, interfaceName })
     } else if (implementsInterface) {
       // implement()()
     }
   })
 }
 
-const implementType = ({ object,  property,  Interface } = {}) => {
+const implementType = ({ object = {},  property = {},  Interface = {}, parentInterfaceName = null } = {}) => {
   const {
     [property]: { type: expectedType, array: typedArray } = {},
-    [IMPLEMENT_TYPES.NAME]: interfaceName,
+    [IMPLEMENT_TYPES.NAME]: thisInterfaceName,
     [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false } = {}
   } = Interface
+  const interfaceName = parentInterfaceName || thisInterfaceName
   const type = getType(object[property])
 
   if (type !== expectedType && expectedType !== 'any') {
     warn && errors.InvalidTypeImplementation.warn({
+      property,
+      interfaceName,
+      type,
+      expectedType
+    })
+    error && errors.InvalidTypeImplementation.throw({
       property,
       interfaceName,
       type,
