@@ -1,9 +1,9 @@
 import ErrorFactory from "./factory"
 
 export const InvalidArrayElement = new ErrorFactory({
-  message: ({ interfaceName }) => (`
+  message: ({ interfaceName, property } = {}) => (`
     Failed to implement interface: '${interfaceName}'.
-    
+    Invalid array element given to ${property}. Strict mode was enabled and element was not a valid type() or Interface().
   `)
 })
 
