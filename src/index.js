@@ -1,7 +1,7 @@
 // export { default } from './implement'
 // export { default as Interface } from './Interface'
 // export { default as type } from './type'
-export { IMPLEMENT_TYPES } from './constants'
+export { IMPLEMENT_TYPES, VALID_TYPES } from './constants'
 
 import type from './type'
 import Interface from './Interface'
@@ -26,7 +26,7 @@ const ford = {
   colour: 'blue',
   doors: 4,
   wheels: 'alloy',
-  Seat: ["{ colour: 'red', height: '2' }"]
+  Seat: [{ colour: 'red', height: 2 }]
 }
 
 const FordCar = implement(Car)(ford)

@@ -1,5 +1,17 @@
 import ErrorFactory from "./factory"
 
+export const TrimAlert = new ErrorFactory({
+  message: ({ property, interfaceName } = {}) => (`
+    Trimming property: '${property}' from Interface: '${interfaceName}'.
+  `)
+})
+
+export const UnexpectedPropertyFound = new ErrorFactory({
+  message: ({ property, interfaceName } = {}) => (`
+    Unexpected property: '${property}' found on Interface: '${interfaceName}'.
+  `)
+})
+
 export const InvalidArrayElement = new ErrorFactory({
   message: ({ interfaceName, property } = {}) => (`
     Failed to implement interface: '${interfaceName}'.

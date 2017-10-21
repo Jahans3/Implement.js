@@ -1,9 +1,9 @@
 import { IMPLEMENT_TYPES} from "../constants"
 import * as errors from "../errors"
-import { VALID_TYPES } from '../constants'
+import { VALID_TYPES_LIST } from '../constants'
 
 const isValidType = ({ type }) => {
-  const validType = VALID_TYPES.find(t => t === type)
+  const validType = VALID_TYPES_LIST.find(t => t === type)
 
   if (validType) {
     return validType
