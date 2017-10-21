@@ -17,17 +17,19 @@ const getType = property => {
 
 const implementTypedArray = ({ object = {}, typedArray = [], Interface, property }) => {
   const {
-    [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, strict = false } = {},
+    [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, strict = false, trim = false } = {},
     [IMPLEMENT_TYPES.NAME]: interfaceName
   } = Interface
-  const { [property]: array = [] } = object
+  const { [property]: array = object } = object
 
   object[property] = array.map(el => {
     const type = getType(el)
-    const validType = typedArray.find(item => item.type === type || item.type === VALID_TYPES.ANY)
+    const validType = typedArray.find(item => {
+      return item.type === type || item.type === VALID_TYPES.ANY || item[IMPLEMENT_TYPES.INTERFACE]
+    })
     const TypeInterface = validType === VALID_TYPES.OBJECT && validType.Interface
 
-    if (!validType) {
+    if (!validType && strict) {
       const errorDetails = { interfaceName, property }
 
       warn && errors.InvalidArrayElement.warn(errorDetails)
@@ -36,6 +38,8 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
 
     if (TypeInterface) {
       implement(TypeInterface)(el)
+    } else if (validType === VALID_TYPES.ARRAY) {
+      implementTypedArray({ object: el, typedArray: validType, Interface })
     }
 
     return trim ? undefined : el

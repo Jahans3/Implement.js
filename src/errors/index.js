@@ -15,7 +15,8 @@ export const UnexpectedPropertyFound = new ErrorFactory({
 export const InvalidArrayElement = new ErrorFactory({
   message: ({ interfaceName, property } = {}) => (`
     Failed to implement interface: '${interfaceName}'.
-    Invalid array element given to ${property}. Strict mode was enabled and element was not a valid type() or failed to implement an Interface().
+    Invalid array element given to property: '${property}'.
+    Strict mode was enabled and element was not a valid type() or failed to implement an Interface().
   `)
 })
 
