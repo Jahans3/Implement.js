@@ -21,7 +21,6 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
     [IMPLEMENT_TYPES.NAME]: interfaceName
   } = Interface
   const { [property]: array = [] } = object
-  const invalidArrayElementInvariant = { interfaceName, property }
 
   object[property] = array.map(el => {
     const type = getType(el)
@@ -29,8 +28,10 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
     const TypeInterface = validType === VALID_TYPES.OBJECT && validType.Interface
 
     if (!validType) {
-      warn && errors.InvalidArrayElement.warn(invalidArrayElementInvariant)
-      error && errors.InvalidArrayElement.throw(invalidArrayElementInvariant)
+      const errorDetails = { interfaceName, property }
+
+      warn && errors.InvalidArrayElement.warn(errorDetails)
+      error && errors.InvalidArrayElement.throw(errorDetails)
     }
 
     if (TypeInterface) {

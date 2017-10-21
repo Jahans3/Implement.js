@@ -2,26 +2,26 @@ import ErrorFactory from "./factory"
 
 export const TrimAlert = new ErrorFactory({
   message: ({ property, interfaceName } = {}) => (`
-    Trimming property: '${property}' from Interface: '${interfaceName}'.
+    Trimming property: '${property}' from Interface(): '${interfaceName}'.
   `)
 })
 
 export const UnexpectedPropertyFound = new ErrorFactory({
   message: ({ property, interfaceName } = {}) => (`
-    Unexpected property: '${property}' found on Interface: '${interfaceName}'.
+    Unexpected property: '${property}' found on Interface(): '${interfaceName}'.
   `)
 })
 
 export const InvalidArrayElement = new ErrorFactory({
   message: ({ interfaceName, property } = {}) => (`
     Failed to implement interface: '${interfaceName}'.
-    Invalid array element given to ${property}. Strict mode was enabled and element was not a valid type() or Interface().
+    Invalid array element given to ${property}. Strict mode was enabled and element was not a valid type() or failed to implement an Interface().
   `)
 })
 
 export const InvalidTypeImplementation = new ErrorFactory({
   message: ({ interfaceName, type, property, expectedType } = {}) => (`
-    Failed to implement interface: '${interfaceName}'.
+    Failed to implement Interface(): '${interfaceName}'.
     Invalid type: '${type}' given to property: '${property}', expected: '${expectedType}'.
   `)
 })
