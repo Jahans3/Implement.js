@@ -24,9 +24,7 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
 
   object[property] = array.map(el => {
     const type = getType(el)
-    const validType = typedArray.find(item => {
-      return item.type === type || item.type === VALID_TYPES.ANY || item[IMPLEMENT_TYPES.INTERFACE]
-    })
+    const validType = typedArray.find(item => item.type === type || item.type === VALID_TYPES.ANY)
     const TypeInterface = validType === VALID_TYPES.OBJECT && validType.Interface
 
     if (!validType && strict) {

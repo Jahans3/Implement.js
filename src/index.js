@@ -17,9 +17,10 @@ const Seat = Interface('Seat')({
 const Car = Interface('Car')({
   colour: type('string'),
   doors: type('number'),
-  Seat: type('array', [Seat])
+  Seat: type('array', [type('object', Seat)])
 }, {
-  error: true
+  error: true,
+  strict: true
 })
 
 const ford = {
@@ -30,3 +31,6 @@ const ford = {
 }
 
 const FordCar = implement(Car)(ford)
+console.log(ford)
+console.log('-----------------------')
+console.log(FordCar)

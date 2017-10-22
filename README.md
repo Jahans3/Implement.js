@@ -13,7 +13,7 @@ TODO
 3. extend interfaces
 4. unit tests
 5. ensure original object reference is kept
-###### What is Implements.js?
+###### What is Implement.js?
 Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface, and call `implements` on a class or object to ensure it implement the given interface.
 ```
 class Hello {
@@ -94,7 +94,7 @@ const ChildPassenger = interface({
 
 const Car = interface({
     speed: type(’number’),
-    passengers: type(‘array’, [Passenger, ChildPassenger]),
+    passengers: type(‘array’, [type('object', Passenger), type('object', ChildPassenger)]),
     beep: type(‘function’)
 }, {
     error: true
@@ -127,7 +127,7 @@ const User = interface({
 })
 
 const Users = interface({
-    users: type(‘array’, [User])
+    users: type(‘array’, [type('object', User)])
 }, {
     trim: true
 })
