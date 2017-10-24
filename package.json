@@ -4,7 +4,7 @@
   "description": "JavaScript interface library",
   "main": "lib/implement.js",
   "scripts": {
-    "test": "mocha ./test/index.js",
+    "test": "mocha ./test/index.js --require babel-register",
     "build": "webpack --config webpack.config.js",
     "build-production": "NODE_ENV='production' webpack --config webpack.config.js",
     "postinstall": "rm -rf lib/ && webpack --config webpack.config.js"
@@ -27,6 +27,7 @@
     "babel-plugin-transform-es2015-parameters": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.1",
+    "babel-register": "6.26.0",
     "chai": "4.1.2",
     "mocha": "4.0.1",
     "webpack": "3.8.1",
