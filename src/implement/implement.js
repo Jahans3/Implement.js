@@ -34,36 +34,32 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
       return trim ? undefined : el
     }
 
-    // for each validTypes type object
-    //    attempt to implement the element
-    //    suppress all errors
-    //    if errors.length === types.length
-    //      throw invalid array element error
-
     validTypes.map(validType => {
-      implementType({  })
+      const { Interface: TypeInterface = false } = validType
+
+      if (TypeInterface) {
+        implement(TypeInterface)(el)
+      } else if (validType === VALID_TYPES.ARRAY) {
+        implementTypedArray({ object: el, typedArray: validType, Interface })
+      } else {
+        implementType({ arrayValue: el, Interface, arrayType: validType })
+      }
+
+      return true
     })
-
-    const { Interface: TypeInterface = false } = validType
-
-    if (TypeInterface) {
-      implement(TypeInterface)(el)
-    } else if (validType === VALID_TYPES.ARRAY) {
-      implementTypedArray({ object: el, typedArray: validType, Interface })
-    }
 
     return el
   })
 }
 
-const implementType = ({ object = {},  property = {},  Interface = {} } = {}) => {
+const implementType = ({ object = {},  property = {},  Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
   const {
-    [property]: { type: expectedType, array: typedArray } = {},
-    [IMPLEMENT_TYPES.NAME]: thisInterfaceName,
+    [property]: { type: expectedType, array: typedArray } = arrayType,
+    [IMPLEMENT_TYPES.NAME]: interfaceName,
     [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, trim = false } = {}
   } = Interface
-  const interfaceName = thisInterfaceName
-  const type = getType(object[property])
+  const { [property]: propertyValue = arrayValue } = object
+  const type = getType(propertyValue)
 
   if (type !== expectedType && expectedType !== VALID_TYPES.ANY) {
     const errorDetails = { property,  interfaceName,  type,  expectedType }
