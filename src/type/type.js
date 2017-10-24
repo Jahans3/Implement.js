@@ -2,7 +2,7 @@ import { IMPLEMENT_TYPES} from "../constants"
 import * as errors from "../errors"
 import { VALID_TYPES_LIST } from '../constants'
 
-const isValidType = ({ type }) => {
+export const isValidType = ({ type }) => {
   const validType = VALID_TYPES_LIST.find(t => t === type)
 
   if (validType) {
@@ -12,7 +12,7 @@ const isValidType = ({ type }) => {
   return false
 }
 
-const typeObject = ({ type, array = false, shape: Interface = false } = {}) => ({
+export const typeObject = ({ type, array = false, shape: Interface = false } = {}) => ({
   type,
   array,
   Interface,

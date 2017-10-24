@@ -1,19 +1,19 @@
 import { IMPLEMENT_TYPES, VALID_TYPES } from "../constants"
 import * as errors from '../errors'
 
-const trimProperty = ({ object, property, interfaceName } = {}) => {
+export const trimProperty = ({ object, property, interfaceName } = {}) => {
   errors.TrimAlert.warn({ property, interfaceName })
 
   delete object[property]
 }
 
-const getType = property => {
+export const getType = property => {
   if (Array.isArray(property)) return VALID_TYPES.ARRAY
 
   return typeof property
 }
 
-const implementTypedArray = ({ object = {}, typedArray = [], Interface, property }) => {
+export const implementTypedArray = ({ object = {}, typedArray = [], Interface, property }) => {
   const {
     [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, strict = false, trim = false } = {},
     [IMPLEMENT_TYPES.NAME]: interfaceName
@@ -52,7 +52,7 @@ const implementTypedArray = ({ object = {}, typedArray = [], Interface, property
   })
 }
 
-const implementType = ({ object = {},  property = {},  Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
+export const implementType = ({ object = {},  property = {},  Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
   const {
     [property]: { type: expectedType, array: typedArray } = arrayType,
     [IMPLEMENT_TYPES.NAME]: interfaceName,
