@@ -16,12 +16,14 @@ export const VALID_TYPES = {
   ANY: 'any'
 }
 
-export const VALID_TYPES_LIST = (types => {
+export const VALID_TYPES_LIST = (() => {
   const validTypesList = []
 
-  for (let type in types) {
-    if (types.hasOwnProperty(type)) validTypesList.push(types[type])
+  for (let type in VALID_TYPES) {
+    if (VALID_TYPES.hasOwnProperty(type)){
+      validTypesList.push(VALID_TYPES[type])
+    }
   }
 
   return validTypesList
-})(VALID_TYPES)
+})()

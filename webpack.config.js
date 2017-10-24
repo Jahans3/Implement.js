@@ -1,10 +1,15 @@
 const path = require('path')
 const { DefinePlugin } = require('webpack')
 
+const library = 'implement'
+
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'implements.js',
+    library,
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+    filename: `${library}.js`,
     path: path.resolve(__dirname, 'lib')
   },
   plugins: [
