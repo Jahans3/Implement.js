@@ -11,6 +11,15 @@ describe('type', () => {
 
       done()
     })
+
+    it('will return false if an invalid type is given', done => {
+      const invalidType = 'banana'
+      const checkTypeIsValid = isValidType({ type: invalidType })
+
+      expect(checkTypeIsValid).to.equal(false)
+
+      done()
+    })
   })
   describe('typeObject', () => {
     // ...
