@@ -1,1 +1,1 @@
-export { default } from './implement'
+export { default, implementType, implementTypedArray, trimProperty, getType } from './implement'

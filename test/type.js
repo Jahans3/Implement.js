@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { isValidType } from '../src/type'
 
 describe('type', () => {
   describe('isValidType', () => {

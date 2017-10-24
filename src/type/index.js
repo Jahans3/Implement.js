@@ -1,1 +1,1 @@
-export { default } from './type'
+export { default, isValidType, typeObject } from './type'
