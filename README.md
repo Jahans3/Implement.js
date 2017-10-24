@@ -16,7 +16,7 @@ TODO
 5. ensure original object reference is kept
 
 ###### What is Implement.js?
-Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface, and call `implements` on a class or object to ensure it implement the given interface.
+Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface and call `implement` on a class or object to ensure it implements the given interface.
 ```
 class Hello {
     greeting = 'hello'
@@ -74,7 +74,7 @@ If the string ‘array’ is passed, a second argument can be passed denoting th
 
 If the string ‘object’ is passed, a second argument can be passed denoting an interface for the object, if none is passed then the properties of the object will not be checked. The second argument should be an Interface. ‘object’ types match the options of the given interface.
 ```
-type(string[, Array<type|interface>|interface]) -> Type
+type(string[, Array<type>|Interface]) -> Type
 ```
 
 ## Examples
