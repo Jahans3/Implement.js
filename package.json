@@ -27,6 +27,8 @@
     "babel-plugin-transform-es2015-parameters": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.1",
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
     "webpack": "3.8.1",
     "yarn": "1.2.0"
   },

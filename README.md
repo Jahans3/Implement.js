@@ -3,16 +3,18 @@
 WIP
 
 * Create Java-like interfaces for classes or objects
+* Use in testing to easily verify object shapes and property types
 * Effortlessly and safely parse API responses
 * Warnings are suppressed when process.env.NODE_ENV === 'production'
 
 TODO
 
-1. interface function
+1. interface function - done
 2. enum type
 3. extend interfaces
-4. unit tests
+4. unit tests - in progress
 5. ensure original object reference is kept
+
 ###### What is Implement.js?
 Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface, and call `implements` on a class or object to ensure it implement the given interface.
 ```
