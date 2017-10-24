@@ -4,7 +4,7 @@
   "description": "JavaScript interface library",
   "main": "lib/implement.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./test/index.js",
     "build": "webpack --config webpack.config.js",
     "build-production": "NODE_ENV='production' webpack --config webpack.config.js",
     "postinstall": "rm -rf lib/ && webpack --config webpack.config.js"
