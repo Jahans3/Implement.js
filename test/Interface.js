@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import Interface from '../src/Interface'
 import type from '../src/type'
-import { IMPLEMENT_TYPES } from "../src/constants"
+import { IMPLEMENT_TYPES } from '../src/constants'
 
 describe('Interface', () => {
   it('should throw an \'InvalidInterface\' error if an Interface is given a property that is not a valid type object', done => {

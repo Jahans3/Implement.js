@@ -1,5 +1,5 @@
-import { IMPLEMENT_TYPES} from "../constants"
-import * as errors from "../errors"
+import { IMPLEMENT_TYPES} from '../constants'
+import * as errors from '../errors'
 import { VALID_TYPES_LIST } from '../constants'
 
 export const isValidType = ({ type }) => {

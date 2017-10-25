@@ -1,4 +1,4 @@
-import ErrorFactory from "./factory"
+import ErrorFactory from './factory'
 
 export const TrimAlert = new ErrorFactory({
   message: ({ property, interfaceName } = {}) => (`

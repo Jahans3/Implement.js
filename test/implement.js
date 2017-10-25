@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import type from '../src/type'
 import Interface from '../src/Interface'
 import implement, { trimProperty } from '../src/implement'
-import { IMPLEMENT_TYPES } from "../src/constants"
+import { IMPLEMENT_TYPES } from '../src/constants'
 
 describe('implement', () => {
   describe('trimProperty', () => {
@@ -16,7 +16,6 @@ describe('implement', () => {
       expect(object[property]).to.equal(undefined)
       done()
     })
-    // it('should emit a warning showing which property was being deleted from an Interface', done => {})
   })
 
   describe('getType', () => {

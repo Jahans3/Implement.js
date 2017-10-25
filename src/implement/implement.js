@@ -1,4 +1,4 @@
-import { IMPLEMENT_TYPES, VALID_TYPES } from "../constants"
+import { IMPLEMENT_TYPES, VALID_TYPES } from '../constants'
 import * as errors from '../errors'
 
 export const trimProperty = ({ object, property, interfaceName } = {}) => {

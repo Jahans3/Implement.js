@@ -1,6 +1,6 @@
 import uuid from 'uuid/v1'
-import { IMPLEMENT_TYPES } from "../constants"
-import * as errors from "../errors"
+import { IMPLEMENT_TYPES } from '../constants'
+import * as errors from '../errors'
 
 export default (interfaceName = uuid()) => (Interface = {}, { strict = false, error = false, warn = true, trim = false } = {}) => {
   for (let property in Interface) {
