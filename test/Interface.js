@@ -19,6 +19,16 @@ describe('Interface', () => {
     }
   })
 
+  it('should use a UUID instead if no Interface name is passed', done => {
+    const interfaceName = undefined
+    const MyInterface = Interface()({
+      count: type('number'),
+      message: type('string')
+    })
+
+    expect(MyInterface[IMPLEMENT_TYPES.NAME]) // to.match(/uuid pattern/)
+  })
+
   it('should return a valid Interface object with options, a name, and a flag', done => {
     const interfaceName = 'Test'
     const interfaceOptions = { trim: true, strict: true, error: true, warn: false }

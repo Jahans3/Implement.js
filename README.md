@@ -69,7 +69,7 @@ Options
 ```
 
 ### Type
-Accepts a string matching any [JavaScript types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#Description), plus ‘array’.
+Accepts a string matching any [JavaScript types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#Description), plus ‘array’ and 'array'.
 
 If the string ‘array’ is passed, a second argument can be passed denoting the type of the elements of the array, if none is passed then the types of the elements will not be checked. The second argument should be an array containing Type or Interface. Typed arrays can be empty.
 
