@@ -38,7 +38,7 @@ todo
 ## API
 
 ### Implements
-Accepts an interface and a class or object, and checks to see if the object implement the given interface
+Accepts an interface and a class or object, and checks to see if the object implements the given interface
 ```
 implement(Interface)(object|class) -> object|class
 ```
