@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import Interface from '../src/Interface'
 import type from '../src/type'
-import { IMPLEMENT_TYPES } from '../src/constants'
+import { IMPLEMENT_TYPES, UUID_PATTERN } from '../src/constants'
 
 describe('Interface', () => {
   it('should throw an \'InvalidInterface\' error if an Interface is given a property that is not a valid type object', done => {
@@ -20,13 +20,13 @@ describe('Interface', () => {
   })
 
   it('should use a UUID instead if no Interface name is passed', done => {
-    const interfaceName = undefined
     const MyInterface = Interface()({
       count: type('number'),
       message: type('string')
     })
 
-    expect(MyInterface[IMPLEMENT_TYPES.NAME]) // to.match(/uuid pattern/)
+    expect(MyInterface[IMPLEMENT_TYPES.NAME]).to.match(UUID_PATTERN)
+    done()
   })
 
   it('should return a valid Interface object with options, a name, and a flag', done => {

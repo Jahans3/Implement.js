@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import type from '../src/type'
 import Interface from '../src/Interface'
-import implement, { trimProperty } from '../src/implement'
-import { IMPLEMENT_TYPES } from '../src/constants'
+import implement, { trimProperty, getType } from '../src/implement'
+import { IMPLEMENT_TYPES, VALID_TYPES } from '../src/constants'
 
 describe('implement', () => {
   describe('trimProperty', () => {
@@ -19,7 +19,21 @@ describe('implement', () => {
   })
 
   describe('getType', () => {
-    // ...
+    it('should return the result of a typeof check', done => {
+      const string = '12345'
+      const typeofString = getType(string)
+
+      expect(typeofString).to.equal(VALID_TYPES.STRING)
+      done()
+    })
+
+    it('should return \'array\' type when an array is passed', done => {
+      const array = []
+      const typeofArray = getType(array)
+
+      expect(typeofArray).to.equal(VALID_TYPES.ARRAY)
+      done()
+    })
   })
 
   describe('implementTypedArray', () => {
