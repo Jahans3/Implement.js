@@ -1,8 +1,6 @@
 import { expect } from 'chai'
-import type from '../src/type'
-import Interface from '../src/Interface'
 import implement, { trimProperty, getType } from '../src/implement'
-import { IMPLEMENT_TYPES, VALID_TYPES } from '../src/constants'
+import { VALID_TYPES } from '../src/constants'
 
 describe('implement', () => {
   describe('trimProperty', () => {
