@@ -20,7 +20,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
   } = Interface
   const { [property]: array = object } = object
 
-  object[property] = array.map(el => {
+  array.forEach(el => {
     const type = getType(el)
     const anyType = typedArray.find(item => item.type === VALID_TYPES.ANY)
     const validTypes = typedArray.filter(item => item.type === type)
