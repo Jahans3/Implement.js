@@ -13,7 +13,7 @@ export const getType = property => {
   return typeof property
 }
 
-export const implementTypedArray = ({ object = {}, typedArray = [], Interface, property }) => {
+export const implementTypedArray = ({ object = {}, typedArray = [], Interface, property } = {}) => {
   const {
     [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, strict = false, trim = false } = {},
     [IMPLEMENT_TYPES.NAME]: interfaceName
