@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import implement, { trimProperty, getType } from '../src/implement'
+import implement, { implementTypedArray, implementType, trimProperty, getType } from '../src/implement'
 import { VALID_TYPES } from '../src/constants'
 
 describe('implement', () => {
