@@ -16,12 +16,13 @@ TODO
 5. ensure original object reference is kept
 6. final docs
 7. reasons to use this library docs
+8. alternate property names and ability to rename properties
 
 ###### What is Implement.js?
 Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface and call `implement` on a class or object to ensure it implements the given interface.
 ```
-class Hello {
-    greeting = 'hello'
+const Hello = {
+    greeting: 'hello'
     wave () {}
 }
 const Introduction = interface({
@@ -39,13 +40,18 @@ todo
 ## API
 
 ### Implements
-Accepts an interface and a class or object, and checks to see if the object implements the given interface
+Accepts an `Interface` and a class or object, and checks to see if the object implements the given `Interface`.
 ```
 implement(Interface)(object|class) -> object|class
 ```
 
+###### A note on implementing classes
+Since JavaScript classes aren't true classes and most of the properties declared within aren't defined until the class is instantiated we can only consistently check `function` properties on classes. Once [ES7 Property Initializers](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) land we will be able to check if static properties declared using that syntax are implemented correctly.
+
+Alternatively, you could pass an instantiated class, which is just a function object. However this may not always work unless every property is declared and defined inside the constructor, as properties declared later on in the class lifecycle cannot reliably be accounted for.
+
 ### Interface
-Accepts an object, where all the keys are `type` objects, and returns an Interface. The Interface is to be used by `implement`.
+Accepts an object, where all the keys are `type` objects, and returns an `Interface`. The Interface is to be used by `implement`.
 ```
 interface(object[, options]) -> Interface
 ```
@@ -65,6 +71,7 @@ interface(object[, options]) -> Interface
     warn: false,
 
     // accepts an interface to extend, the new interface must also implement the extended interface
+    // NOTE: extend functionality is not yet complete
     extend: Interface
 }
 ```
@@ -84,7 +91,7 @@ type(string[, Array<type>|Interface]) -> Type
 
 ## Examples
 
-##### Class Example:
+##### Standard example
 ```
 import implement, { interface, type } from ‘implement’
 
@@ -96,27 +103,26 @@ const Passenger = interface({
 const ChildPassenger = interface({
     hasBabySeat: type(‘boolean’)
 }, {
-    extend: Passenger
+    extend: Passenger // Note: extend functionality not yet complete
 })
 
 const Car = interface({
     speed: type(’number’),
     passengers: type(‘array’, [type('object', Passenger), type('object', ChildPassenger)]),
     beep: type(‘function’)
-}, {
-    error: true
-})
+}, { error: true })
 
-const MyCar = implement(Car)(class {
-    speed = 0
-    passengers = []
-
+// Successful implementation
+const MyCar = implement(Car)({
+    speed: 0,
+    passengers: [],
     beep () {}
 })
 
-// throws error
-const OtherCar = implement(Car)(class {
-    speed = 0
+// Bad implementation - does not implement the beep method
+const AnotherCar = implement(Car)({
+    speed: 0,
+    passengers: []
 })
 ```
 
@@ -140,46 +146,18 @@ const ErrorRes = interface({
     code: type(‘number’)
 })
 
+const updateUsers = () => async dispatch => {
+    dispatch(fetchUsersBegin())
 
-const updateUsers = () => dispatch => {
-    dispatch(fetchUsers())
+    try {
+        const users = await fetchUsers()
+        const MyUsers = implement(Users)(users)
 
-    fetchUsers().then(res => {
-        const MyUsers = implement(Users)(res)
-        store.dispatch(updateUsersSuccess(MyUsers))
-    })
-    .catch(err => {
+        dispatch(updateUsersSuccess(MyUsers))
+    } catch (err) {
         const MyErrorRes = implement(ErrorRes)(err)
-        store.dispatch(updateUsersError(MyErrorRes))
-    })
-}
-```
 
-##### With Redux reducers:
-```
-import { fetchUsers } from ‘../services/userService’
-import implement, { interface, type } from ‘implement’
-
-const SomeAction = interface({
-    some: type(‘string’),
-    other: type(‘number’)
-}, { trim: true })
-
-const initialState = {
-    some: ‘thing’,
-    other: 0
-}
-
-export default (state = initialState, action) => {
-    switch(action.type) {
-        case SOME_ACTION:
-            return implement(SomeAction)({
-                …state,
-                …action.payload
-            })
-
-        default:
-            return state
+        dispatch(updateUsersError(MyErrorRes))
     }
 }
 ```
