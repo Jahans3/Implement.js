@@ -19,7 +19,7 @@ TODO
 8. alternate property names and ability to rename properties
 
 ###### What is Implement.js?
-Implements is library that attempts to bring interfaces to JavaScript. Simply define an interface and call `implement` on a class or object to ensure it implements the given interface.
+Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface and call `implement` on a class or object to ensure it implements the given interface.
 ```
 const Hello = {
     greeting: 'hello'
