@@ -91,9 +91,9 @@ type(string[, Array<type>|Interface]) -> Type
 
 ## Examples
 
-##### Standard example
+##### Standard usage
 ```
-import implement, { interface, type } from ‘implement’
+import implement, { interface, type } from 'implement-js'
 
 const Passenger = interface({
     name: type(‘string’),
@@ -126,11 +126,30 @@ const AnotherCar = implement(Car)({
 })
 ```
 
+##### Unit tests
+```
+import implement from 'implement-js'
+import { Vehicle } from '../interfaces'
+
+describe('Car Service', () => {
+    describe('getCar', () => {
+        it('should implement the Vehicle interface', done => {
+            const someCar = CarService.getCar()
+
+            // Ensure someCar implements Vehicle interface
+            implement(Vehicle)(someCar)
+
+            done()
+        })
+    })
+})
+```
+
 ##### Refactoring API response in conjunction with `redux-thunk`:
 ```
 import { store } from ‘../store’
 import { fetchUsers } from ‘../services/userService’
-import implement, { interface, type } from ‘implement’
+import implement, { interface, type } from 'implement-js'
 
 const User = interface({
     name: type(‘string’),
