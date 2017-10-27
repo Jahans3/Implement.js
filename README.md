@@ -129,9 +129,10 @@ const AnotherCar = implement(Car)({
 ##### Unit tests
 ```
 import implement from 'implement-js'
+import CarService from '../services/CarService'
 import { Vehicle } from '../interfaces'
 
-describe('Car Service', () => {
+describe('CarService', () => {
     describe('getCar', () => {
         it('should implement the Vehicle interface', done => {
             const someCar = CarService.getCar()
