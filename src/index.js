@@ -19,8 +19,7 @@ const SeatBelt = Interface('SeatBelt')({
   beltColour: type('string'),
   beltLength: type('number')
 }, {
-  error: true,
-  strict: true
+  error: true
 })
 
 const Car = Interface('Car')({

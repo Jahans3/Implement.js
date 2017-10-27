@@ -49,7 +49,7 @@ Accepts an object, where all the keys are `type` objects, and returns an Interfa
 ```
 interface(object[, options]) -> Interface
 ```
-Options
+###### Options
 ```
 {
     // when true, errors and warnings are triggered when properties other than those on the interface are found, is suppressed if trim is set to true - default: false
@@ -68,6 +68,9 @@ Options
     extend: Interface
 }
 ```
+
+###### A note on Interface options behaviour
+A nested Interface will inherit the options of the Interface it is called on, meaning if a nested Interface has `strict: true` but the parent Interface has `strict: false` set, an error will not be thrown if the nested Interface implements a property not described on the nested Interface.
 
 ### Type
 Accepts a string matching any [JavaScript types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#Description), plus `‘array’` and `'any'`.
@@ -117,7 +120,7 @@ const OtherCar = implement(Car)(class {
 })
 ```
 
-##### Refactoring API response:
+##### Refactoring API response in conjunction with `redux-thunk`:
 ```
 import { store } from ‘../store’
 import { fetchUsers } from ‘../services/userService’
@@ -126,15 +129,11 @@ import implement, { interface, type } from ‘implement’
 const User = interface({
     name: type(‘string’),
     id: type(‘number’)
-}, {
-    trim: true
-})
+}, { trim: true })
 
 const Users = interface({
     users: type(‘array’, [type('object', User)])
-}, {
-    trim: true
-})
+}, { trim: true })
 
 const ErrorRes = interface({
     message: type(‘string’),
@@ -164,7 +163,7 @@ import implement, { interface, type } from ‘implement’
 const SomeAction = interface({
     some: type(‘string’),
     other: type(‘number’)
-})
+}, { trim: true })
 
 const initialState = {
     some: ‘thing’,
