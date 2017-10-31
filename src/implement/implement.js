@@ -75,8 +75,6 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
         implementType({ arrayValue: el, Interface, arrayType: validType })
       }
     })
-
-    return el
   })
 }
 
