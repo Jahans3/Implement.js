@@ -1,7 +1,23 @@
 import { IMPLEMENT_TYPES, VALID_TYPES } from '../constants'
 import * as errors from '../errors'
 
-export const trimProperty = ({ object, property, interfaceName } = {}) => {
+export const filterFalseyMutable = ({ array = [] } = {}) => {
+  array.forEach((el, i) => {
+    if (!el) array.splice(i, 1)
+  })
+}
+
+export const trimArrayElement = ({ array = [], index, element, property, interfaceName, warn = true } = {}) => {
+  errors.TrimArrayElementAlert.options = { warn }
+  errors.TrimArrayElementAlert.warn({ element, property, interfaceName })
+
+  array[index] = undefined
+
+  filterFalseyMutable({ array })
+}
+
+export const trimProperty = ({ object, property, interfaceName, warn = true } = {}) => {
+  errors.TrimAlert.options = { warn }
   errors.TrimAlert.warn({ property, interfaceName })
 
   delete object[property]
@@ -19,19 +35,33 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     [IMPLEMENT_TYPES.NAME]: interfaceName
   } = Interface
   const { [property]: array = object } = object
+  const anyType = typedArray.find(item => item.type === VALID_TYPES.ANY)
 
-  array.forEach(el => {
+  errors.InvalidArrayElement.options = { warn, error }
+  errors.EmptyArray.options = { warn, error }
+
+  if (strict && typedArray.length && !array.length && !anyType) {
+    const errorDetails = { interfaceName, property }
+
+    errors.EmptyArray.warn(errorDetails)
+    errors.EmptyArray.throw(errorDetails)
+  }
+
+  array.map((el, i) => {
     const type = getType(el)
-    const anyType = typedArray.find(item => item.type === VALID_TYPES.ANY)
     const validTypes = typedArray.filter(item => item.type === type)
 
-    if (!anyType && !validTypes.length && strict) {
+    if (!anyType && !validTypes.length && (trim || strict)) {
       const errorDetails = { interfaceName, property }
 
-      warn && errors.InvalidArrayElement.warn(errorDetails)
-      error && errors.InvalidArrayElement.throw(errorDetails)
+      !trim && errors.InvalidArrayElement.warn(errorDetails)
+      !trim && errors.InvalidArrayElement.throw(errorDetails)
 
-      return trim ? undefined : el
+      if (trim) {
+        trimArrayElement({ array, index: i, element: el, property, interfaceName, warn })
+      }
+
+      return
     }
 
     validTypes.map(validType => {
@@ -44,11 +74,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
       } else {
         implementType({ arrayValue: el, Interface, arrayType: validType })
       }
-
-      return true
     })
-
-    return el
   })
 }
 
@@ -61,12 +87,14 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
   const { [property]: propertyValue = arrayValue } = object
   const type = getType(propertyValue)
 
+  errors.InvalidTypeImplementation.options = { warn, error }
+
   if (type !== expectedType && expectedType !== VALID_TYPES.ANY) {
     const errorDetails = { property,  interfaceName,  type,  expectedType }
 
-    warn && errors.InvalidTypeImplementation.warn(errorDetails)
-    error && errors.InvalidTypeImplementation.throw(errorDetails)
-    trim && trimProperty({ object, property, interfaceName })
+    errors.InvalidTypeImplementation.warn(errorDetails)
+    errors.InvalidTypeImplementation.throw(errorDetails)
+    trim && trimProperty({ object, property, interfaceName, warn })
   }
 
   if (type === VALID_TYPES.ARRAY) {
@@ -74,43 +102,41 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
   }
 }
 
-const implement = Interface => object => {
-  if (process.env.NODE_ENV === 'production') return object
+export default function implement (Interface) {
+  return object => {
+    const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
 
-  const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
+    errors.UnexpectedPropertyFound.options = { warn, error }
 
-  for (let property in object) {
-    if (object.hasOwnProperty(property)) {
-      const { [property]: interfaceProp = {} } = Interface
-      const {
-        array: typedArray,
-        Interface: NestedInterface,
-        [IMPLEMENT_TYPES.TYPE]: interfaceType,
-        [IMPLEMENT_TYPES.NAME]: interfaceName
-      } = interfaceProp
+    for (let property in object) {
+      if (object.hasOwnProperty(property)) {
+        const { [property]: interfaceProp = {} } = Interface
+        const {
+          array: typedArray,
+          Interface: NestedInterface,
+          [IMPLEMENT_TYPES.TYPE]: interfaceType,
+          [IMPLEMENT_TYPES.NAME]: interfaceName
+        } = interfaceProp
 
-      if (!interfaceProp) {
-        if (strict && !trim) {
-          const errorDetails = { interfaceName, property }
+        if (!Object.keys(interfaceProp).length) {
+          if (strict && !trim) {
+            const errorDetails = { interfaceName, property }
 
-          error && errors.UnexpectedPropertyFound.throw(errorDetails)
-          warn && errors.UnexpectedPropertyFound.warn(errorDetails)
-        } else if (trim) {
-          trimProperty({ object, property, interfaceName })
+            errors.UnexpectedPropertyFound.warn(errorDetails)
+            errors.UnexpectedPropertyFound.throw(errorDetails)
+          } else if (trim) {
+            trimProperty({ object, property, interfaceName, warn })
+          }
+        }
+
+        if (interfaceType && !NestedInterface) {
+          implementType({ object, property, Interface, typedArray })
+        } else if (NestedInterface) {
+          implement(NestedInterface)(object[property])
         }
       }
-
-      if (interfaceType && !NestedInterface && !typedArray) {
-        implementType({ object, property, Interface })
-      } else if (NestedInterface) {
-        implement(NestedInterface)(object[property])
-      } else if (typedArray) {
-        implementTypedArray({ object, typedArray, Interface, property })
-      }
     }
+
+    return object
   }
-
-  return object
 }
-
-export default implement

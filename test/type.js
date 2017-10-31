@@ -1,6 +1,6 @@
 import { expect } from 'chai'
-import type, { isValidType, typeObject } from '../src/type'
-import Interface from '../src/Interface'
+import { isValidType, typeObject } from '../src/type'
+import { Interface, type } from '../src'
 import { IMPLEMENT_TYPES } from '../src/constants'
 
 describe('type', () => {
@@ -103,7 +103,7 @@ describe('type', () => {
 
     it('should throw an \'InvalidShape\' error when \'object\' is passed but an Interface is not passed as the shape', done => {
       const notAnInterface = {}
-      const expectedError = 'Invalid object given as a type shape, must be a valid Interface().'
+      const expectedError = 'Invalid object given as a type() shape, must be a valid Interface().'
 
       try {
         type('object', notAnInterface)

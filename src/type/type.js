@@ -22,6 +22,10 @@ export const typeObject = ({ type, array = false, shape: Interface = false } = {
 export default (type, shape) => {
   const validType = isValidType({ type })
 
+  errors.InvalidType.options = { error: true }
+  errors.InvalidShapeArray.options = { error: true }
+  errors.InvalidShape.options = { error: true }
+
   if (!validType) {
     return errors.InvalidType.throw({ type })
   }
