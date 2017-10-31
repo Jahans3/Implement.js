@@ -28,7 +28,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     if (!anyType && !validTypes.length && strict) {
       const errorDetails = { interfaceName, property }
 
-      warn && errors.InvalidArrayElement.warn(errorDetails)
+      errors.InvalidArrayElement.warn(errorDetails)
       error && errors.InvalidArrayElement.throw(errorDetails)
 
       return trim ? undefined : el
@@ -49,7 +49,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     })
 
     return el
-  })
+  }).filter(el => el)
 }
 
 export const implementType = ({ object = {},  property = {},  Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
@@ -75,8 +75,6 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
 }
 
 const implement = Interface => object => {
-  if (process.env.NODE_ENV === 'production') return object
-
   const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
 
   for (let property in object) {
@@ -93,8 +91,8 @@ const implement = Interface => object => {
         if (strict && !trim) {
           const errorDetails = { interfaceName, property }
 
+          errors.UnexpectedPropertyFound.warn(errorDetails)
           error && errors.UnexpectedPropertyFound.throw(errorDetails)
-          warn && errors.UnexpectedPropertyFound.warn(errorDetails)
         } else if (trim) {
           trimProperty({ object, property, interfaceName })
         }

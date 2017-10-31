@@ -37,19 +37,19 @@ describe('implement', () => {
   })
 
   describe('implementTypedArray', () => {
-    it('should throw an error in strict mode if an no matching type is passed', () => {
+    it('should throw an error in strict mode if an no matching type is passed', done => {
       const Car = Interface('Car')({
-        seats: type('array',[type('string')])
-      })
+        seats: type('array', [type('string')])
+      }, { strict: true })
 
       try {
-        implement(Car)({ seats: 4 })
+        implement(Car)({ seats: [4] })
       } catch (err) {
         expect(err instanceof Error).to.equal(true)
         expect(err.message).to.equal('Invalid array element given to property: \'seats\'.')
         done()
       }
-     })
+    })
     it('should throw an error in strict mode if no type is passed', () => {})
   })
 
