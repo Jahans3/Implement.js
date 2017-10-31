@@ -20,7 +20,7 @@ TODO
 9. ~~delegate checking options (strict, trim, error, warn) to ErrorFactory - instantiate each error with options before it is used allowing us to fire and forget errors~~
 10. add more spies to tests to test warnings
 
-###### What is Implement.js?
+##### What is Implement.js?
 Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on a class or object to check if it implements the given interface.
 ```
 const Hello = {
@@ -35,7 +35,7 @@ const Introduction = Interface({
 const HelloIntroduction = implement(Introduction)(Hello) // throws an error!
 ```
 
-###### Why use Implements.js?
+##### Why use Implements.js?
 
 todo
 
