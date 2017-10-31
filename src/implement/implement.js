@@ -118,7 +118,7 @@ export default function implement (Interface) {
           [IMPLEMENT_TYPES.NAME]: interfaceName
         } = interfaceProp
 
-        if (!interfaceProp) {
+        if (!Object.keys(interfaceProp).length) {
           if (strict && !trim) {
             const errorDetails = { interfaceName, property }
 

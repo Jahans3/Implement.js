@@ -150,6 +150,20 @@ describe('implement', () => {
   })
 
   describe('implement', () => {
-    // ...
+    it('should accept an Interface() and return a curried function', done => {
+      const Car = Interface('Car')({ seats: type('string') })
+      const implementCar = implement(Car)
+
+      expect(typeof implementCar).to.equal('function')
+      done()
+    })
+
+    it('should trim a property on the given object not present on the Interface() when strict is true', done => {
+      const Car = Interface('Car')({ seats: type('string') }, { trim: true })
+      const MyCar = implement(Car)({ doors: 4, seats: 'leather' })
+
+      expect(MyCar.doors).to.equal(undefined)
+      done()
+    })
   })
 })
