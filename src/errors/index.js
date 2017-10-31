@@ -1,5 +1,11 @@
 import ErrorFactory from './factory'
 
+export const InvalidExtendedInterface = new ErrorFactory({
+  message: ({ interfaceName } = {}) => (`
+    Interface(): '${interfaceName}' attempted to extended invalid Interface().
+  `)
+})
+
 export const InterfaceNotImplemented = new ErrorFactory({
   message: ({ interfaceName, properties } = {}) => (`
     Interface(): '${interfaceName}' not implemented.

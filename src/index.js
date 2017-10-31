@@ -9,6 +9,15 @@ import implement from './implement'
 export default implement
 export { type, Interface }
 
+const Car = Interface('Car')({
+  seats: type('string'),
+  wheels: type('number')
+})
+
+const BigCar = Interface('BigCar')({
+  size: type('string')
+}, { extend: Car })
+
 // const Seat = Interface('Seat')({
 //   colour: type('string'),
 //   height: type('number')

@@ -2,7 +2,15 @@ import uuid from 'uuid/v1'
 import { IMPLEMENT_TYPES } from '../constants'
 import * as errors from '../errors'
 
-export const extend = ({ Interface, ExtendedInterface }) => {
+export const extend = ({ Interface = {}, ExtendedInterface = {} }) => {
+  errors.InvalidExtendedInterface.options = { error: true }
+
+  if (!ExtendedInterface[IMPLEMENT_TYPES.INTERFACE]) {
+    const { [IMPLEMENT_TYPES.NAME]: interfaceName } = Interface
+    const errorDetails = { interfaceName }
+    errors.InvalidExtendedInterface.throw(errorDetails)
+  }
+
   delete ExtendedInterface[IMPLEMENT_TYPES.INTERFACE]
   delete ExtendedInterface[IMPLEMENT_TYPES.OPTIONS]
   delete ExtendedInterface[IMPLEMENT_TYPES.NAME]
