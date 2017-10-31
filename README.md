@@ -176,9 +176,7 @@ const updateUsers = () => async dispatch => {
 
         dispatch(updateUsersSuccess(MyUsers))
     } catch (err) {
-        const MyErrorRes = implement(ErrorRes)(err)
-
-        dispatch(updateUsersError(MyErrorRes))
+        dispatch(updateUsersError(err))
     }
 }
 ```
