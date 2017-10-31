@@ -17,13 +17,54 @@ describe('Interface', () => {
         })
       } catch (err) {
         expect(err instanceof Error).to.equal(true)
-        expect(err.message).to.equal(expectedError)
+        expect(err.message).to.include(expectedError)
         done()
       }
+    })
+
+    it('should discard the Interface()-specific properties of the ExtendedInterface', done => {
+      const interfaceName = 'FastCar'
+      const Car = Interface('Car')({ seats: type('number') })
+      const FastCar = Interface(interfaceName)({
+        speed: type('number')
+      }, { extend: Car })
+
+      expect(FastCar[IMPLEMENT_TYPES.NAME]).to.equal(interfaceName)
+      done()
+    })
+
+    it('should not mutate the ExtendedInterface', done => {
+      const interfaceName = 'Car'
+      const interfaceOptions = { error: true, strict: true }
+      const Car = Interface(interfaceName)({
+        seats: type('number')
+      }, interfaceOptions)
+
+      Interface('FastCar')({
+        speed: type('number')
+      }, { extend: Car })
+
+      expect(Car[IMPLEMENT_TYPES.NAME]).to.equal(interfaceName)
+      expect(Car[IMPLEMENT_TYPES.OPTIONS].error).to.equal(interfaceOptions.error)
+      expect(Car[IMPLEMENT_TYPES.OPTIONS].strict).to.equal(interfaceOptions.strict)
+      expect(Car[IMPLEMENT_TYPES.INTERFACE]).to.equal(true)
+      done()
     })
   })
 
   describe('Interface', () => {
+    it('should throw an \'EmptyInterface\' error if an object containing no properties is given as the Interface', done => {
+      const expectedError = 'Empty object given to Interface(), my be an object containing only valid type() objects'
+
+      try {
+        Interface('Car')({})
+      } catch (err) {
+        expect(err instanceof Error).to.equal(true)
+        expect(err.message).to.equal(expectedError)
+        done()
+      }
+    })
+
     it('should throw an \'InvalidInterface\' error if an Interface is given a property that is not a valid type object', done => {
       const expectedError = 'Invalid object given as Interface() property, must be a valid type() object.'
 

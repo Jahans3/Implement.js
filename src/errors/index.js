@@ -46,6 +46,10 @@ export const InvalidTypeImplementation = new ErrorFactory({
   `)
 })
 
+export const EmptyInterface = new ErrorFactory({
+  message: 'Empty object given to Interface(), my be an object containing only valid type() objects'
+})
+
 export const InvalidInterface = new ErrorFactory({
   message: 'Invalid object given as Interface() property, must be a valid type() object.'
 })
