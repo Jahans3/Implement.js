@@ -49,7 +49,9 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     })
 
     return el
-  }).filter(el => el)
+  })
+
+  array.filter(el => el)
 }
 
 export const implementType = ({ object = {},  property = {},  Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
