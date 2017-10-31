@@ -8,7 +8,7 @@ export const filterFalseyMutable = ({ array = [] } = {}) => {
 }
 
 export const trimArrayElement = ({ array = [], index, element, property, interfaceName, warn = true } = {}) => {
-  errors.TrimArrayElementAlert.init = { warn }
+  errors.TrimArrayElementAlert.options = { warn }
   errors.TrimArrayElementAlert.warn({ element, property, interfaceName })
 
   array[index] = undefined
@@ -17,7 +17,7 @@ export const trimArrayElement = ({ array = [], index, element, property, interfa
 }
 
 export const trimProperty = ({ object, property, interfaceName, warn = true } = {}) => {
-  errors.TrimAlert.init = { warn }
+  errors.TrimAlert.options = { warn }
   errors.TrimAlert.warn({ property, interfaceName })
 
   delete object[property]
@@ -37,8 +37,8 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
   const { [property]: array = object } = object
   const anyType = typedArray.find(item => item.type === VALID_TYPES.ANY)
 
-  errors.InvalidArrayElement.init = { warn, error }
-  errors.EmptyArray.init = { warn, error }
+  errors.InvalidArrayElement.options = { warn, error }
+  errors.EmptyArray.options = { warn, error }
 
   if (strict && typedArray.length && !array.length && !anyType) {
     const errorDetails = { interfaceName, property }
@@ -89,7 +89,7 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
   const { [property]: propertyValue = arrayValue } = object
   const type = getType(propertyValue)
 
-  errors.InvalidTypeImplementation.init = { warn, error }
+  errors.InvalidTypeImplementation.options = { warn, error }
 
   if (type !== expectedType && expectedType !== VALID_TYPES.ANY) {
     const errorDetails = { property,  interfaceName,  type,  expectedType }
@@ -108,7 +108,7 @@ export default function implement (Interface) {
   return object => {
     const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
 
-    errors.UnexpectedPropertyFound.init = { warn, error }
+    errors.UnexpectedPropertyFound.options = { warn, error }
 
     for (let property in object) {
       if (object.hasOwnProperty(property)) {

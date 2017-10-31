@@ -7,7 +7,7 @@ export default class ErrorFactory {
     this._shouldThrow = false
   }
 
-  set init ({ warn, error }) {
+  set options ({ warn, error }) {
     this._shouldWarn = warn
     this._shouldThrow = error
   }
