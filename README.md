@@ -73,7 +73,10 @@ Interface(object[, options]) -> Interface
     warn: false,
 
     // accepts an Interface to extend, the new Interface must also implement the extended Interface
-    extend: Interface
+    extend: Interface,
+
+    // accepts an object of strings to rename the corresponding properties on the given array
+    rename: { seats: 'chairs' }
 }
 ```
 

@@ -24,7 +24,7 @@ export const extend = ({ Interface = {}, ExtendedInterface = {}, interfaceName }
 
 export default (interfaceName = uuid()) => (
   Interface = {},
-  { strict = false, error = false, warn = true, trim = false, extend: ExtendedInterface } = {}
+  { strict = false, error = false, warn = true, trim = false, extend: ExtendedInterface, rename = {} } = {}
 ) => {
   errors.EmptyInterface.options = { error: true }
   errors.InvalidInterface.options = { error: true }
@@ -49,7 +49,7 @@ export default (interfaceName = uuid()) => (
   }
 
   Interface[IMPLEMENT_TYPES.INTERFACE] = true
-  Interface[IMPLEMENT_TYPES.OPTIONS] = { strict, error, warn, trim }
+  Interface[IMPLEMENT_TYPES.OPTIONS] = { strict, error, warn, trim, rename }
   Interface[IMPLEMENT_TYPES.NAME] = interfaceName
 
   return Interface

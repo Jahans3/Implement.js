@@ -104,7 +104,7 @@ describe('Interface', () => {
 
     it('should return a valid Interface object with options, a name, and a flag', done => {
       const interfaceName = 'Test'
-      const interfaceOptions = { trim: true, strict: true, error: true, warn: false }
+      const interfaceOptions = { trim: true, strict: true, error: true, warn: false, rename: {} }
       const MyInterface = Interface(interfaceName)({
         count: type('number'),
         message: type('string')

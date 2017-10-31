@@ -8,6 +8,10 @@ import * as errors from '../src/errors'
 chai.use(spies)
 
 describe('implement', () => {
+  describe('renameProperty', () => {
+
+  })
+
   describe('trimProperty', () => {
     it('should delete a property from an object', done => {
       const interfaceName = 'Test'
@@ -196,6 +200,19 @@ describe('implement', () => {
         expect(err.message).to.include(expectedError)
         done()
       }
+    })
+
+    it('should rename a property if a rename option is passed', done => {
+      const Car = Interface('Car')({
+        bonnet: type('string')
+      }, { rename: { bonnet: 'hood' } })
+      const AmericanCar = implement(Car)({
+        hood: 'big'
+      })
+
+      expect(AmericanCar.hood).to.equal('big')
+      expect(AmericanCar.bonnet).to.equal(undefined)
+      done()
     })
   })
 })

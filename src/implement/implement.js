@@ -1,6 +1,15 @@
 import { IMPLEMENT_TYPES, IMPLEMENT_TYPES_LIST, VALID_TYPES } from '../constants'
 import * as errors from '../errors'
 
+export const renameProperty = ({ Interface, property, newName }) => {
+  const propertyValue = Interface[property]
+
+  Interface[property] = undefined
+  Interface[newName] = propertyValue
+
+  return newName
+}
+
 export const shallowMatchKeys = ({ Interface, object, warn = true, error = false } = {}) => {
   const interfaceKeys = Object.keys(Interface)
   const objectKeys = Object.keys(object)
@@ -17,6 +26,7 @@ export const shallowMatchKeys = ({ Interface, object, warn = true, error = false
   if (propertiesNotImplemented.length) {
     const interfaceName = Interface[IMPLEMENT_TYPES.NAME]
     const errorDetails = { interfaceName, properties: JSON.stringify(propertiesNotImplemented) }
+
     errors.InterfaceNotImplemented.warn(errorDetails)
     errors.InterfaceNotImplemented.throw(errorDetails)
   }
@@ -99,7 +109,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
   })
 }
 
-export const implementType = ({ object = {},  property = {},  Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
+export const implementType = ({ object = {}, property = {}, Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
   const {
     [property]: { type: expectedType, array: typedArray } = arrayType,
     [IMPLEMENT_TYPES.NAME]: interfaceName,
@@ -111,10 +121,11 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
   errors.InvalidTypeImplementation.options = { warn, error }
 
   if (type !== expectedType && expectedType !== VALID_TYPES.ANY) {
-    const errorDetails = { property,  interfaceName,  type,  expectedType }
+    const errorDetails = { property, interfaceName, type, expectedType }
 
     errors.InvalidTypeImplementation.warn(errorDetails)
     errors.InvalidTypeImplementation.throw(errorDetails)
+
     trim && trimProperty({ object, property, interfaceName, warn })
   }
 
@@ -125,7 +136,7 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
 
 export default function implement (Interface) {
   return object => {
-    const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
+    const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false, rename = {} } = {} } = Interface
 
     errors.UnexpectedPropertyFound.options = { warn, error }
 
@@ -134,12 +145,17 @@ export default function implement (Interface) {
     for (let property in object) {
       if (object.hasOwnProperty(property)) {
         const { [property]: interfaceProp = {} } = Interface
+        const newName = rename[property]
         const {
           array: typedArray,
           Interface: NestedInterface,
           [IMPLEMENT_TYPES.TYPE]: interfaceType,
           [IMPLEMENT_TYPES.NAME]: interfaceName
         } = interfaceProp
+
+        if (newName) {
+          property = renameProperty({ Interface, property, newName })
+        }
 
         if (!Object.keys(interfaceProp).length) {
           if (strict && !trim) {
