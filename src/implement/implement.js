@@ -32,11 +32,13 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     const type = getType(el)
     const validTypes = typedArray.filter(item => item.type === type)
 
-    if (!anyType && !validTypes.length && strict) {
+    if (!anyType && !validTypes.length && (trim || strict)) {
       const errorDetails = { interfaceName, property }
 
-      warn && errors.InvalidArrayElement.warn(errorDetails)
-      error && errors.InvalidArrayElement.throw(errorDetails)
+      !trim && warn && errors.InvalidArrayElement.warn(errorDetails)
+      !trim && error && errors.InvalidArrayElement.throw(errorDetails)
+
+      trim && warn && errors.TrimArrayElementAlert.warn({ property, interfaceName })
 
       return trim ? undefined : el
     }

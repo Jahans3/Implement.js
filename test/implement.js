@@ -38,7 +38,6 @@ describe('implement', () => {
 
   describe('implementTypedArray', () => {
     it('should throw an error in strict mode with errors enabled if an no matching type is passed', done => {
-      // implementTypedArray({ object, typedArray, Interface, property })
       const seatsTypedArray = [type('string')]
       const seatsProperty = 'seats'
       const Car = Interface('Car')({
@@ -50,7 +49,7 @@ describe('implement', () => {
         implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
       } catch (err) {
         expect(err instanceof Error).to.equal(true)
-        expect(err.message).to.include('Invalid array element given to property: \'seats\'.')
+        expect(err.message).to.include(`Invalid array element given to property: '${seatsProperty}'.`)
         done()
       }
     })
@@ -67,7 +66,7 @@ describe('implement', () => {
         implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
       } catch (err) {
         expect(err instanceof Error).to.equal(true)
-        expect(err.message).to.include('Property \'seats\' array should contain at least one element, instead empty array was found.')
+        expect(err.message).to.include(`Property '${seatsProperty}' array should contain at least one element, instead empty array was found.`)
         done()
       }
     })
