@@ -30,10 +30,10 @@ export default class ErrorFactory {
   }
 
   warn (...args) {
-    warning(false, this._message(...args))
+    warning(false, this.message(...args))
   }
 
   throw (...args) {
-    invariant(false, this._message(...args))
+    invariant(false, this.message(...args))
   }
 }
