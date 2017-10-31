@@ -9,9 +9,9 @@ WIP
 
 TODO
 
-1. ~~interface function~~
+1. ~~Interface function~~
 2. enum type
-3. extend interfaces
+3. extend Interfaces
 4. ~~unit tests~~
 5. ~~ensure original object reference is kept~~
 6. final docs
@@ -21,13 +21,13 @@ TODO
 10. add more spies to tests to test warnings
 
 ###### What is Implement.js?
-Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on a class or object to ensure it implements the given interface.
+Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on a class or object to check if it implements the given interface.
 ```
 const Hello = {
     greeting: 'hello'
     wave () {}
 }
-const Introduction = interface({
+const Introduction = Interface({
     greeting: type('string')
     handshake: type('function')
 }, { error: true })
@@ -55,24 +55,24 @@ Alternatively, you could pass an instantiated class, which is just a function ob
 ### Interface
 Accepts an object, where all the keys are `type` objects, and returns an `Interface`. The Interface is to be used by `implement`.
 ```
-interface(object[, options]) -> Interface
+Interface(object[, options]) -> Interface
 ```
 ###### Options
 ```
 {
-    // when true, errors and warnings are triggered when properties other than those on the interface are found, is suppressed if trim is set to true - default: false
+    // when true, errors and warnings are triggered when properties other than those on the Interface are found, is suppressed if trim is set to true - default: false
     strict: true,
 
-    // remove methods that don’t match the interface - default: false
+    // remove methods that don’t match the Interface - default: false
     trim: true,
 
-    // throws an error when interface isn’t implemented - default: false
+    // throws an error when Interface isn’t implemented - default: false
     error: true,
 
-    // warns when interface isn’t implemented, provides stack trace - default: true
+    // warns when Interface isn’t implemented, provides stack trace - default: true
     warn: false,
 
-    // accepts an interface to extend, the new interface must also implement the extended interface
+    // accepts an Interface to extend, the new Interface must also implement the extended Interface
     // NOTE: extend functionality is not yet complete
     extend: Interface
 }
@@ -86,7 +86,7 @@ Accepts a string matching any [JavaScript types](https://developer.mozilla.org/e
 
 If the string `‘array’` is passed, a second argument can be passed denoting the type of the elements of the array, if none is passed then the types of the elements will not be checked. The second argument should be an array containing `type` objects.
 
-If the string `‘object’` is passed, a second argument can be passed denoting an interface for the object, if none is passed then the properties of the object will not be checked. The second argument should be an `Interface`. `‘object’` types match the options of the given interface.
+If the string `‘object’` is passed, a second argument can be passed denoting an Interface for the object, if none is passed then the properties of the object will not be checked. The second argument should be an `Interface`. `‘object’` types match the options of the given Interface.
 ```
 type(string[, Array<type>|Interface]) -> Type
 ```
@@ -95,20 +95,20 @@ type(string[, Array<type>|Interface]) -> Type
 
 ##### Standard usage
 ```
-import implement, { interface, type } from 'implement-js'
+import implement, { Interface, type } from 'implement-js'
 
-const Passenger = interface({
+const Passenger = Interface({
     name: type(‘string’),
     height: type(‘number’)
 })
 
-const ChildPassenger = interface({
+const ChildPassenger = Interface({
     hasBabySeat: type(‘boolean’)
 }, {
     extend: Passenger // Note: extend functionality not yet complete
 })
 
-const Car = interface({
+const Car = Interface({
     speed: type(’number’),
     passengers: type(‘array’, [type('object', Passenger), type('object', ChildPassenger)]),
     beep: type(‘function’)
@@ -132,14 +132,14 @@ const AnotherCar = implement(Car)({
 ```
 import implement from 'implement-js'
 import CarService from '../services/CarService'
-import { Vehicle } from '../interfaces'
+import { Vehicle } from '../Interfaces'
 
 describe('CarService', () => {
     describe('getCar', () => {
-        it('should implement the Vehicle interface', done => {
+        it('should implement the Vehicle Interface', done => {
             const someCar = CarService.getCar()
 
-            // Ensure someCar implements Vehicle interface
+            // Ensure someCar implements Vehicle Interface
             implement(Vehicle)(someCar)
 
             done()
@@ -152,18 +152,18 @@ describe('CarService', () => {
 ```
 import { store } from ‘../store’
 import { fetchUsers } from ‘../services/userService’
-import implement, { interface, type } from 'implement-js'
+import implement, { Interface, type } from 'implement-js'
 
-const User = interface({
+const User = Interface({
     name: type(‘string’),
     id: type(‘number’)
 }, { trim: true })
 
-const Users = interface({
+const Users = Interface({
     users: type(‘array’, [type('object', User)])
 }, { trim: true })
 
-const ErrorRes = interface({
+const ErrorRes = Interface({
     message: type(‘string’),
     code: type(‘number’)
 })
