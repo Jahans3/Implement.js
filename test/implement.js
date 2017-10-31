@@ -44,12 +44,13 @@ describe('implement', () => {
         [seatsProperty]: type('array', seatsTypedArray)
       }, { strict: true, error: true, warn: false })
       const MyCar = { [seatsProperty]: [4] }
+      const expectedError = `Invalid array element given to property: '${seatsProperty}'.`
 
       try {
         implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
       } catch (err) {
         expect(err instanceof Error).to.equal(true)
-        expect(err.message).to.include(`Invalid array element given to property: '${seatsProperty}'.`)
+        expect(err.message).to.include(expectedError)
         done()
       }
     })
@@ -61,12 +62,13 @@ describe('implement', () => {
         [seatsProperty]: type('array', seatsTypedArray)
       }, { strict: true, error: true, warn: false })
       const MyCar = { [seatsProperty]: [] }
+      const expectedError = `Property: '${seatsProperty}' array should contain at least one element, instead empty array was found.`
 
       try {
         implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
       } catch (err) {
         expect(err instanceof Error).to.equal(true)
-        expect(err.message).to.include(`Property '${seatsProperty}' array should contain at least one element, instead empty array was found.`)
+        expect(err.message).to.include(expectedError)
         done()
       }
     })

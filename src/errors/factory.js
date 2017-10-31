@@ -5,6 +5,10 @@ export default class ErrorFactory {
     this.message = message
   }
 
+  set options ({ trim = false, error = false, warn = true, strict = false }) {
+    this._options = { trim, error, warn, strict }
+  }
+
   get message () {
     return this._message
   }
@@ -26,10 +30,10 @@ export default class ErrorFactory {
   }
 
   warn (...args) {
-    warning(false, this.message(...args))
+    warning(false, this._message(...args))
   }
 
   throw (...args) {
-    invariant(false, this.message(...args))
+    invariant(false, this._message(...args))
   }
 }

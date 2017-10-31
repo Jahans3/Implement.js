@@ -4,7 +4,7 @@ import { IMPLEMENT_TYPES, UUID_PATTERN } from '../src/constants'
 
 describe('Interface', () => {
   it('should throw an \'InvalidInterface\' error if an Interface is given a property that is not a valid type object', done => {
-    const expectedError = 'Invalid object given as Interface property, must be a valid type() object.'
+    const expectedError = 'Invalid object given as Interface() property, must be a valid type() object.'
 
     try {
       Interface('Test')({
