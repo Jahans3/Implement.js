@@ -4,7 +4,7 @@ WIP
 
 * Create Java-like interfaces for classes or objects
 * Use in testing to easily verify object shapes and property types
-* Effortlessly and safely parse API responses
+* Effortlessly and safely parse API responses by renaming and reshaping objects
 * Errors and warnings are suppressed when `process.env.NODE_ENV === 'production'`
 
 TODO
@@ -16,7 +16,7 @@ TODO
 5. ~~ensure original object reference is kept~~
 6. final docs
 7. reasons to use this library docs
-8. alternate property names and ability to rename properties
+8. ~~alternate property names and ability to rename properties~~
 9. ~~delegate checking options (strict, trim, error, warn) to ErrorFactory - instantiate each error with options before it is used allowing us to fire and forget errors~~
 10. add more spies to tests to test warnings
 
@@ -150,7 +150,7 @@ describe('CarService', () => {
 })
 ```
 
-##### Refactoring API response in conjunction with `redux-thunk`:
+##### Renaming and refactoring API response in conjunction with `redux-thunk`:
 ```
 import { store } from ‘../store’
 import { fetchUsers } from ‘../services/userService’
@@ -163,11 +163,9 @@ const User = Interface({
 
 const Users = Interface({
     users: type(‘array’, [type('object', User)])
-}, { trim: true })
-
-const ErrorRes = Interface({
-    message: type(‘string’),
-    code: type(‘number’)
+}, {
+    trim: true,
+    rename: { API_RESPONSE_USERS_LIST: 'users' }
 })
 
 const updateUsers = () => async dispatch => {
