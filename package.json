@@ -1,6 +1,6 @@
 {
   "name": "implement-js",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha1",
   "description": "JavaScript interface library",
   "main": "lib/implement.js",
   "scripts": {
