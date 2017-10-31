@@ -15,7 +15,7 @@ TODO
 4. ~~unit tests~~
 5. ~~ensure original object reference is kept~~
 6. final docs
-7. reasons to use this library docs
+7. reasons to use this library docs - in progress
 8. alternate property names and ability to rename properties
 9. ~~delegate checking options (strict, trim, error, warn) to ErrorFactory - instantiate each error with options before it is used allowing us to fire and forget errors~~
 10. add more spies to tests to test warnings
