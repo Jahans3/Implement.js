@@ -44,7 +44,7 @@ describe('implement', () => {
       const Car = Interface('Car')({
         [seatsProperty]: type('array', seatsTypedArray)
       }, { strict: true, error: true, warn: false })
-      const MyCar = { seats: [4] }
+      const MyCar = { [seatsProperty]: [4] }
 
       try {
         implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
@@ -56,12 +56,15 @@ describe('implement', () => {
     })
 
     it('should throw an error in strict mode with errors enabled if an empty array is passed for an array type()', done => {
+      const seatsTypedArray = [type('string')]
+      const seatsProperty = 'seats'
       const Car = Interface('Car')({
-        seats: type('array', [type('string')])
+        [seatsProperty]: type('array', seatsTypedArray)
       }, { strict: true, error: true, warn: false })
+      const MyCar = { [seatsProperty]: [] }
 
       try {
-        implement(Car)({ seats: [] })
+        implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
       } catch (err) {
         expect(err instanceof Error).to.equal(true)
         expect(err.message).to.include('Property \'seats\' array should contain at least one element, instead empty array was found.')
