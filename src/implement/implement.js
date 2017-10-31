@@ -1,8 +1,8 @@
 import { IMPLEMENT_TYPES, VALID_TYPES } from '../constants'
 import * as errors from '../errors'
 
-export const trimProperty = ({ object, property, interfaceName } = {}) => {
-  errors.TrimAlert.warn({ property, interfaceName })
+export const trimProperty = ({ object, property, interfaceName, warn = true } = {}) => {
+  warn && errors.TrimAlert.warn({ property, interfaceName })
 
   delete object[property]
 }
@@ -75,7 +75,7 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
 
     warn && errors.InvalidTypeImplementation.warn(errorDetails)
     error && errors.InvalidTypeImplementation.throw(errorDetails)
-    trim && trimProperty({ object, property, interfaceName })
+    trim && trimProperty({ object, property, interfaceName, warn })
   }
 
   if (type === VALID_TYPES.ARRAY) {
@@ -103,7 +103,7 @@ const implement = Interface => object => {
           warn && errors.UnexpectedPropertyFound.warn(errorDetails)
           error && errors.UnexpectedPropertyFound.throw(errorDetails)
         } else if (trim) {
-          trimProperty({ object, property, interfaceName })
+          trimProperty({ object, property, interfaceName, warn })
         }
       }
 

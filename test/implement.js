@@ -11,7 +11,7 @@ describe('implement', () => {
       const property = 'testprop'
       const object = { [property]: true }
 
-      trimProperty({ object, property, interfaceName })
+      trimProperty({ object, property, interfaceName, warn: false })
 
       expect(object[property]).to.equal(undefined)
       done()
@@ -38,12 +38,16 @@ describe('implement', () => {
 
   describe('implementTypedArray', () => {
     it('should throw an error in strict mode with errors enabled if an no matching type is passed', done => {
+      // implementTypedArray({ object, typedArray, Interface, property })
+      const seatsTypedArray = [type('string')]
+      const seatsProperty = 'seats'
       const Car = Interface('Car')({
-        seats: type('array', [type('string')])
-      }, { strict: true, error: true })
+        [seatsProperty]: type('array', seatsTypedArray)
+      }, { strict: true, error: true, warn: false })
+      const MyCar = { seats: [4] }
 
       try {
-        implement(Car)({ seats: [4] })
+        implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
       } catch (err) {
         expect(err instanceof Error).to.equal(true)
         expect(err.message).to.include('Invalid array element given to property: \'seats\'.')
@@ -54,7 +58,7 @@ describe('implement', () => {
     it('should throw an error in strict mode with errors enabled if an empty array is passed for an array type()', done => {
       const Car = Interface('Car')({
         seats: type('array', [type('string')])
-      }, { strict: true, error: true })
+      }, { strict: true, error: true, warn: false })
 
       try {
         implement(Car)({ seats: [] })
