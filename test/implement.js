@@ -158,11 +158,20 @@ describe('implement', () => {
       done()
     })
 
-    it('should trim a property on the given object not present on the Interface() when strict is true', done => {
+    it('should trim a property on the given object not present on the Interface() when trim is true', done => {
       const Car = Interface('Car')({ seats: type('string') }, { trim: true })
       const MyCar = implement(Car)({ doors: 4, seats: 'leather' })
 
       expect(MyCar.doors).to.equal(undefined)
+      done()
+    })
+
+    it('should call \'UnexpectedPropertyFound\' if a property does not appear on the Interface() when strict is true', done => {
+      const spy = chai.spy.on(errors.UnexpectedPropertyFound, 'warn')
+      const Car = Interface('Car')({ seats: type('string') }, { strict: true })
+
+      implement(Car)({ seats: 'leather', doors: 4 })
+      expect(spy).to.have.been.called()
       done()
     })
   })
