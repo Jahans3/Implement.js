@@ -5,7 +5,7 @@ WIP
 * Create Java-like interfaces for classes or objects
 * Use in testing to easily verify object shapes and property types
 * Effortlessly and safely parse API responses
-* Warnings are suppressed when `process.env.NODE_ENV === 'production'`
+* Errors and warnings are suppressed when `process.env.NODE_ENV === 'production'`
 
 TODO
 
