@@ -10,6 +10,7 @@ describe('errors', () => {
 
     it('should throw an error if it is not instantiated with a message', done => {
       const expectedError = 'Implements: ErrorFactory: message arg must be string or function that returns a string, instead got: \'undefined\''
+
       try {
         new ErrorFactory({})
       } catch (err) {
