@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai'
 import spies from 'chai-spies'
-import { implementTypedArray, implementType, trimProperty, getType } from '../src/implement'
+import { implementTypedArray, implementType, trimProperty, getType, filterFalseyMutable } from '../src/implement'
 import { VALID_TYPES } from '../src/constants'
 import implement, { Interface, type } from '../src'
 import * as errors from '../src/errors'
@@ -35,6 +35,18 @@ describe('implement', () => {
       const typeofArray = getType(array)
 
       expect(typeofArray).to.equal(VALID_TYPES.ARRAY)
+      done()
+    })
+  })
+
+  describe('filterFalseyMutable', () => {
+    it('should mutate the given array in order to filter all falsey elements from an array', done => {
+      const myArray = [1, 2, undefined, 3, 4, 5]
+
+      filterFalseyMutable({ array: myArray })
+
+      expect(myArray.length).to.equal(5)
+      expect(myArray).to.satisfy(array => array.every((el, i) => el === i + 1))
       done()
     })
   })
@@ -91,6 +103,7 @@ describe('implement', () => {
       expect(spy).to.have.been.called()
       expect(MyCar[seatsProperty][0]).to.equal('hello')
       expect(MyCar[seatsProperty][1]).to.equal(undefined)
+      expect(MyCar[seatsProperty].length).to.equal(1)
       done()
     })
   })

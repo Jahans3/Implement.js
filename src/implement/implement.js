@@ -1,6 +1,12 @@
 import { IMPLEMENT_TYPES, VALID_TYPES } from '../constants'
 import * as errors from '../errors'
 
+export const filterFalseyMutable = ({ array = [] } = {}) => {
+  array.forEach((el, i) => {
+    if (!el) array.splice(i, 1)
+  })
+}
+
 export const trimProperty = ({ object, property, interfaceName, warn = true } = {}) => {
   warn && errors.TrimAlert.warn({ property, interfaceName })
 
@@ -28,7 +34,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     error && errors.EmptyArray.throw(errorDetails)
   }
 
-  array.forEach((el, i) => {
+  array.map((el, i) => {
     const type = getType(el)
     const validTypes = typedArray.filter(item => item.type === type)
 
@@ -63,7 +69,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     return el
   })
 
-  array.filter(el => el)
+  filterFalseyMutable({ array })
 }
 
 export const implementType = ({ object = {},  property = {},  Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
