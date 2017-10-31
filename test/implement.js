@@ -37,7 +37,7 @@ describe('implement', () => {
   })
 
   describe('implementTypedArray', () => {
-    it('should throw an error in strict mode with errors set true if an no matching type is passed', done => {
+    it('should throw an error in strict mode with errors enabled if an no matching type is passed', done => {
       const Car = Interface('Car')({
         seats: type('array', [type('string')])
       }, { strict: true, error: true })
@@ -50,7 +50,20 @@ describe('implement', () => {
         done()
       }
     })
-    it('should throw an error in strict mode if no type is passed', () => {})
+
+    it('should throw an error in strict mode with errors enabled if an empty array is passed for an array type()', done => {
+      const Car = Interface('Car')({
+        seats: type('array', [type('string')])
+      }, { strict: true, error: true })
+
+      try {
+        implement(Car)({ seats: [] })
+      } catch (err) {
+        expect(err instanceof Error).to.equal(true)
+        expect(err.message).to.include('Property \'seats\' array should contain at least one element, instead empty array was found.')
+        done()
+      }
+    })
   })
 
   describe('implementType', () => {

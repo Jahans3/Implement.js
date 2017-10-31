@@ -48,3 +48,11 @@ export const InvalidShapeArray = new ErrorFactory({
 export const InvalidShape = new ErrorFactory({
   message: 'Invalid object given as a type shape, must be a valid Interface().'
 })
+
+export const EmptyArray = new ErrorFactory({
+  message: ({ interfaceName, property } = {}) => (`
+    Failed to implement Interface(): '${interfaceName}'.
+    Empty array given to type() array with strict mode enabled.
+    Property '${property}' array should contain at least one element, instead empty array was found.
+  `)
+})
