@@ -7,12 +7,12 @@ export const filterFalseyMutable = ({ array = [] } = {}) => {
   })
 }
 
-export const trimArrayElement = ({ array = [], index, element, property, interfaceName } = {}) => {
+export const trimArrayElement = ({ array = [], index, element, property, interfaceName, warn = true } = {}) => {
   array[index] = undefined
 
   filterFalseyMutable({ array })
 
-  errors.TrimArrayElementAlert.warn({ element, property, interfaceName })
+  warn && errors.TrimArrayElementAlert.warn({ element, property, interfaceName })
 }
 
 export const trimProperty = ({ object, property, interfaceName, warn = true } = {}) => {
@@ -53,7 +53,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
       !trim && error && errors.InvalidArrayElement.throw(errorDetails)
 
       if (trim) {
-        trimArrayElement({ array, index: i, element: el, property, interfaceName })
+        trimArrayElement({ array, index: i, element: el, property, interfaceName, warn })
       }
 
       return
