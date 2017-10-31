@@ -11,11 +11,11 @@ TODO
 
 1. ~~Interface function~~
 2. enum type
-3. extend Interfaces
+3. ~~extend Interfaces~~
 4. ~~unit tests~~
 5. ~~ensure original object reference is kept~~
 6. final docs
-7. reasons to use this library docs - in progress
+7. reasons to use this library docs
 8. alternate property names and ability to rename properties
 9. ~~delegate checking options (strict, trim, error, warn) to ErrorFactory - instantiate each error with options before it is used allowing us to fire and forget errors~~
 10. add more spies to tests to test warnings
@@ -73,7 +73,6 @@ Interface(object[, options]) -> Interface
     warn: false,
 
     // accepts an Interface to extend, the new Interface must also implement the extended Interface
-    // NOTE: extend functionality is not yet complete
     extend: Interface
 }
 ```
@@ -105,7 +104,7 @@ const Passenger = Interface({
 const ChildPassenger = Interface({
     hasBabySeat: type(‘boolean’)
 }, {
-    extend: Passenger // Note: extend functionality not yet complete
+    extend: Passenger
 })
 
 const Car = Interface({
