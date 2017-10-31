@@ -183,5 +183,19 @@ describe('implement', () => {
       expect(MyCar).to.deep.equal(someCar)
       done()
     })
+
+    it('should warn or throw an error if the given Interface() is not implemented', done => {
+      const seatsProperty = 'seats'
+      const Car = Interface('Car')({ [seatsProperty]: type('string') }, { error: true })
+      const expectedError = `Failed to implement the following properties: ["${seatsProperty}"].`
+
+      try {
+        implement(Car)({ doors: 5 })
+      } catch (err) {
+        expect(err instanceof Error).to.equal(true)
+        expect(err.message).to.include(expectedError)
+        done()
+      }
+    })
   })
 })

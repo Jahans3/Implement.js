@@ -1,5 +1,12 @@
 import ErrorFactory from './factory'
 
+export const InterfaceNotImplemented = new ErrorFactory({
+  message: ({ interfaceName, properties } = {}) => (`
+    Interface(): '${interfaceName}' not implemented.
+    Failed to implement the following properties: ${properties}.
+  `)
+})
+
 export const TrimArrayElementAlert = new ErrorFactory({
   message: ({ element, property, interfaceName } = {}) => (`
     Trimming element: ${element} from array property: '${property}' on Interface(): '${interfaceName}'.

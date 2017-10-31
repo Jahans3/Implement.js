@@ -1,5 +1,26 @@
-import { IMPLEMENT_TYPES, VALID_TYPES } from '../constants'
+import { IMPLEMENT_TYPES, IMPLEMENT_TYPES_LIST, VALID_TYPES } from '../constants'
 import * as errors from '../errors'
+
+export const shallowMatchKeys = ({ Interface, object, warn = true, error = false } = {}) => {
+  const interfaceKeys = Object.keys(Interface)
+  const objectKeys = Object.keys(object)
+  const propertiesNotImplemented = []
+
+  errors.InterfaceNotImplemented.options = { warn, error }
+
+  interfaceKeys.map(key => {
+    if (!objectKeys.includes(key) && !IMPLEMENT_TYPES_LIST.includes(key)) {
+      propertiesNotImplemented.push(key)
+    }
+  })
+
+  if (propertiesNotImplemented.length) {
+    const interfaceName = Interface[IMPLEMENT_TYPES.NAME]
+    const errorDetails = { interfaceName, properties: JSON.stringify(propertiesNotImplemented) }
+    errors.InterfaceNotImplemented.warn(errorDetails)
+    errors.InterfaceNotImplemented.throw(errorDetails)
+  }
+}
 
 export const filterFalseyMutable = ({ array = [] } = {}) => {
   array.forEach((el, i) => {
@@ -107,6 +128,8 @@ export default function implement (Interface) {
     const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
 
     errors.UnexpectedPropertyFound.options = { warn, error }
+
+    shallowMatchKeys({ object, Interface, warn, error })
 
     for (let property in object) {
       if (object.hasOwnProperty(property)) {

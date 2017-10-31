@@ -5,6 +5,16 @@ export const IMPLEMENT_TYPES = {
   TYPE: '__IMPLEMENT_TYPE_OBJECT__'
 }
 
+export const IMPLEMENT_TYPES_LIST = (() => {
+  const implementTypesList = []
+
+  for (let type in IMPLEMENT_TYPES) {
+    implementTypesList.push(IMPLEMENT_TYPES[type])
+  }
+
+  return implementTypesList
+})()
+
 export const VALID_TYPES = {
   NUMBER: 'number',
   OBJECT: 'object',
