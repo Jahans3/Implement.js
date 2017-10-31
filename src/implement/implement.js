@@ -7,6 +7,14 @@ export const filterFalseyMutable = ({ array = [] } = {}) => {
   })
 }
 
+export const trimArrayElement = ({ array = [], index, element, property, interfaceName } = {}) => {
+  array[index] = undefined
+
+  filterFalseyMutable({ array })
+
+  errors.TrimArrayElementAlert.warn({ element, property, interfaceName })
+}
+
 export const trimProperty = ({ object, property, interfaceName, warn = true } = {}) => {
   warn && errors.TrimAlert.warn({ property, interfaceName })
 
@@ -45,10 +53,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
       !trim && error && errors.InvalidArrayElement.throw(errorDetails)
 
       if (trim) {
-        errors.TrimArrayElementAlert.warn({ element: el, property, interfaceName })
-
-        // Replace array element with undefined and filter out below to ensure forEach iterates correctly
-        array[i] = undefined
+        trimArrayElement({ array, index: i, element: el, property, interfaceName })
       }
 
       return
@@ -68,9 +73,6 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
 
     return el
   })
-
-  // Filter falsey values after forEach (rather than during) to ensure it loops correctly
-  filterFalseyMutable({ array })
 }
 
 export const implementType = ({ object = {},  property = {},  Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
