@@ -5,10 +5,6 @@ export default class ErrorFactory {
     this.message = message
   }
 
-  set options ({ trim = false, error = false, warn = true, strict = false }) {
-    this._options = { trim, error, warn, strict }
-  }
-
   get message () {
     return this._message
   }
