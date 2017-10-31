@@ -1,4 +1,4 @@
-# Implement.js
+# Implement.js [![npm version](https://badge.fury.io/js/implement-js.svg)](https://badge.fury.io/js/implement-js) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
 WIP
 
@@ -182,4 +182,10 @@ const updateUsers = () => async dispatch => {
         dispatch(updateUsersError(MyErrorRes))
     }
 }
+```
+
+### Code Style
+[![js-standard-style](https://cdn.rawgit.com/standard/standard/master/badge.svg)](http://standardjs.com)
+```
+eslint-config-standard
 ```
