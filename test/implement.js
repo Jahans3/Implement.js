@@ -1,6 +1,8 @@
 import { expect } from 'chai'
-import implement, { implementTypedArray, implementType, trimProperty, getType } from '../src/implement'
+import { implementTypedArray, implementType, trimProperty, getType } from '../src/implement'
 import { VALID_TYPES } from '../src/constants'
+import implement, { Interface, type } from "../src";
+
 
 describe('implement', () => {
   describe('trimProperty', () => {
@@ -35,7 +37,20 @@ describe('implement', () => {
   })
 
   describe('implementTypedArray', () => {
-    // ...
+    it('should throw an error in strict mode if an no matching type is passed', () => {
+      const Car = Interface('Car')({
+        seats: type('array',[type('string')])
+      })
+
+      try {
+        implement(Car)({ seats: 4 })
+      } catch (err) {
+        expect(err instanceof Error).to.equal(true)
+        expect(err.message).to.equal('Invalid array element given to property: \'seats\'.')
+        done()
+      }
+     })
+    it('should throw an error in strict mode if no type is passed', () => {})
   })
 
   describe('implementType', () => {

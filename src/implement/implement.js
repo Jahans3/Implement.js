@@ -100,12 +100,10 @@ const implement = Interface => object => {
         }
       }
 
-      if (interfaceType && !NestedInterface && !typedArray) {
-        implementType({ object, property, Interface })
+      if (interfaceType && !NestedInterface) {
+        implementType({ object, property, Interface, typedArray })
       } else if (NestedInterface) {
         implement(NestedInterface)(object[property])
-      } else if (typedArray) {
-        implementTypedArray({ object, typedArray, Interface, property })
       }
     }
   }

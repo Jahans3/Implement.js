@@ -1,6 +1,6 @@
 import { expect } from 'chai'
-import type, { isValidType, typeObject } from '../src/type'
-import Interface from '../src/Interface'
+import { isValidType, typeObject } from '../src/type'
+import { Interface, type } from '../src'
 import { IMPLEMENT_TYPES } from '../src/constants'
 
 describe('type', () => {

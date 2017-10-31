@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-import Interface from '../src/Interface'
-import type from '../src/type'
+import { Interface, type } from '../src'
 import { IMPLEMENT_TYPES, UUID_PATTERN } from '../src/constants'
 
 describe('Interface', () => {

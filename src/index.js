@@ -1,11 +1,13 @@
 // export { default } from './implement'
 // export { default as Interface } from './Interface'
 // export { default as type } from './type'
-export { IMPLEMENT_TYPES, VALID_TYPES } from './constants'
+// export { IMPLEMENT_TYPES, VALID_TYPES } from './constants'
 
 import type from './type'
 import Interface from './Interface'
 import implement from './implement'
+export default implement
+export { type, Interface }
 
 const Seat = Interface('Seat')({
   colour: type('string'),
