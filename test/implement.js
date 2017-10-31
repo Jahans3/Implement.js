@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai'
 import spies from 'chai-spies'
-import { implementTypedArray, implementType, trimProperty, getType, filterFalseyMutable } from '../src/implement'
+import { implementTypedArray, implementType, trimProperty, getType, filterFalseyMutable, trimArrayElement } from '../src/implement'
 import { VALID_TYPES } from '../src/constants'
 import implement, { Interface, type } from '../src'
 import * as errors from '../src/errors'
@@ -51,6 +51,20 @@ describe('implement', () => {
     })
   })
 
+  describe('trimArrayElement', () => {
+    it('should delete an element from the given array at the specified index', done => {
+      const warningSpy = chai.spy.on(errors.TrimArrayElementAlert, 'warn')
+      const myArray = [1, 2, 3, 4, 5]
+
+      trimArrayElement({ array: myArray, index: 2, element: 3, property: 'myArray', interfaceName: 'Test' })
+
+      expect(myArray.length).to.equal(4)
+      expect(myArray).to.satisfy(array => array.every(el => el !== 3))
+      expect(warningSpy).to.have.been.called()
+      done()
+    })
+  })
+
   describe('implementTypedArray', () => {
     it('should throw an error in strict mode with errors enabled if an no matching type is passed', done => {
       const seatsTypedArray = [type('string')]
@@ -89,7 +103,6 @@ describe('implement', () => {
     })
 
     it('should remove array elements that don\'t match the Interface() when trim is enabled', done => {
-      const spy = chai.spy.on(errors.TrimArrayElementAlert, 'warn')
       const seatsTypedArray = [type('string')]
       const seatsProperty = 'seats'
       const interfaceName = 'Car'
@@ -100,7 +113,6 @@ describe('implement', () => {
 
       implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
 
-      expect(spy).to.have.been.called()
       expect(MyCar[seatsProperty][0]).to.equal('hello')
       expect(MyCar[seatsProperty][1]).to.equal(undefined)
       expect(MyCar[seatsProperty].length).to.equal(1)
