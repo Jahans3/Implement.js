@@ -50,6 +50,18 @@ describe('Interface', () => {
       expect(Car[IMPLEMENT_TYPES.INTERFACE]).to.equal(true)
       done()
     })
+
+    it('should return a an object containing keys from both objects, prioritising the new Interface()', done => {
+      const interfaceTypes = { seats: type('number'), wheels: type('number') }
+      const extendedInterfaceTypes = { speed: type('number'), seats: type('string') }
+      const Car = Interface('Car')(interfaceTypes)
+      const FastCar = Interface('FastCar')(extendedInterfaceTypes, { extend: Car })
+
+      expect(FastCar.wheels).to.equal(interfaceTypes.wheels)
+      expect(FastCar.seats).to.equal(extendedInterfaceTypes.seats)
+      expect(FastCar.speed).to.equal(extendedInterfaceTypes.speed)
+      done()
+    })
   })
 
   describe('Interface', () => {
