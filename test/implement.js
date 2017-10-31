@@ -53,14 +53,14 @@ describe('implement', () => {
 
   describe('trimArrayElement', () => {
     it('should delete an element from the given array at the specified index', done => {
-      const warningSpy = chai.spy.on(errors.TrimArrayElementAlert, 'warn')
+      const spy = chai.spy.on(errors.TrimArrayElementAlert, 'warn')
       const myArray = [1, 2, 3, 4, 5]
 
       trimArrayElement({ array: myArray, index: 2, element: 3, property: 'myArray', interfaceName: 'Test' })
 
       expect(myArray.length).to.equal(4)
       expect(myArray).to.satisfy(array => array.every(el => el !== 3))
-      expect(warningSpy).to.have.been.called()
+      expect(spy).to.have.been.called()
       done()
     })
   })
@@ -121,7 +121,32 @@ describe('implement', () => {
   })
 
   describe('implementType', () => {
-    // ...
+    it('should trim the property if it does not match the given type and trim is true', done => {
+      const seatsProperty = 'seats'
+      const Car = Interface('Car')({
+        [seatsProperty]: type('string')
+      }, { error: false, trim: true })
+      const MyCar = { [seatsProperty]: 5 }
+
+      implementType({ object: MyCar, Interface: Car, property: seatsProperty })
+
+      expect(MyCar.seats).to.equal(undefined)
+      done()
+    })
+
+    it('should call \'InvalidTypeImplementation\' warning if it does not match the given type', done => {
+      const spy = chai.spy.on(errors.InvalidTypeImplementation, 'warn')
+      const seatsProperty = 'seats'
+      const Car = Interface('Car')({
+        [seatsProperty]: type('string')
+      }, { error: false, trim: true })
+      const MyCar = { [seatsProperty]: 5 }
+
+      implementType({ object: MyCar, Interface: Car, property: seatsProperty })
+
+      expect(spy).to.have.been.called()
+      done()
+    })
   })
 
   describe('implement', () => {
