@@ -174,5 +174,14 @@ describe('implement', () => {
       expect(spy).to.have.been.called()
       done()
     })
+
+    it('should return the given object unchanged even if there are properties not appearing on the given Interface()', done => {
+      const Car = Interface('Car')({ seats: type('string') })
+      const someCar = { doors: 4, seats: 'leather' }
+      const MyCar = implement(Car)(someCar)
+
+      expect(MyCar).to.deep.equal(someCar)
+      done()
+    })
   })
 })
