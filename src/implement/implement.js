@@ -97,39 +97,39 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
   }
 }
 
-const implement = Interface => object => {
-  const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
+export default function implement (Interface) {
+  return object => {
+    const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
 
-  for (let property in object) {
-    if (object.hasOwnProperty(property)) {
-      const { [property]: interfaceProp = {} } = Interface
-      const {
-        array: typedArray,
-        Interface: NestedInterface,
-        [IMPLEMENT_TYPES.TYPE]: interfaceType,
-        [IMPLEMENT_TYPES.NAME]: interfaceName
-      } = interfaceProp
+    for (let property in object) {
+      if (object.hasOwnProperty(property)) {
+        const { [property]: interfaceProp = {} } = Interface
+        const {
+          array: typedArray,
+          Interface: NestedInterface,
+          [IMPLEMENT_TYPES.TYPE]: interfaceType,
+          [IMPLEMENT_TYPES.NAME]: interfaceName
+        } = interfaceProp
 
-      if (!interfaceProp) {
-        if (strict && !trim) {
-          const errorDetails = { interfaceName, property }
+        if (!interfaceProp) {
+          if (strict && !trim) {
+            const errorDetails = { interfaceName, property }
 
-          warn && errors.UnexpectedPropertyFound.warn(errorDetails)
-          error && errors.UnexpectedPropertyFound.throw(errorDetails)
-        } else if (trim) {
-          trimProperty({ object, property, interfaceName, warn })
+            warn && errors.UnexpectedPropertyFound.warn(errorDetails)
+            error && errors.UnexpectedPropertyFound.throw(errorDetails)
+          } else if (trim) {
+            trimProperty({ object, property, interfaceName, warn })
+          }
+        }
+
+        if (interfaceType && !NestedInterface) {
+          implementType({ object, property, Interface, typedArray })
+        } else if (NestedInterface) {
+          implement(NestedInterface)(object[property])
         }
       }
-
-      if (interfaceType && !NestedInterface) {
-        implementType({ object, property, Interface, typedArray })
-      } else if (NestedInterface) {
-        implement(NestedInterface)(object[property])
-      }
     }
+
+    return object
   }
-
-  return object
 }
-
-export default implement
