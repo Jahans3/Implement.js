@@ -3,6 +3,9 @@ import { IMPLEMENT_TYPES } from '../constants'
 import * as errors from '../errors'
 
 export default (interfaceName = uuid()) => (Interface = {}, { strict = false, error = false, warn = true, trim = false } = {}) => {
+  // Only allow type() objects as Interface() properties
+  errors.InvalidInterface.init = { error: true }
+
   for (let property in Interface) {
     if (Interface.hasOwnProperty(property)) {
       const { [property]: { [IMPLEMENT_TYPES.TYPE]: isType = false } = {} } = Interface

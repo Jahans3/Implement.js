@@ -8,15 +8,17 @@ export const filterFalseyMutable = ({ array = [] } = {}) => {
 }
 
 export const trimArrayElement = ({ array = [], index, element, property, interfaceName, warn = true } = {}) => {
+  errors.TrimArrayElementAlert.init = { warn }
+  errors.TrimArrayElementAlert.warn({ element, property, interfaceName })
+
   array[index] = undefined
 
   filterFalseyMutable({ array })
-
-  warn && errors.TrimArrayElementAlert.warn({ element, property, interfaceName })
 }
 
 export const trimProperty = ({ object, property, interfaceName, warn = true } = {}) => {
-  warn && errors.TrimAlert.warn({ property, interfaceName })
+  errors.TrimAlert.init = { warn }
+  errors.TrimAlert.warn({ property, interfaceName })
 
   delete object[property]
 }
@@ -35,11 +37,14 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
   const { [property]: array = object } = object
   const anyType = typedArray.find(item => item.type === VALID_TYPES.ANY)
 
+  errors.InvalidArrayElement.init = { warn, error }
+  errors.EmptyArray.init = { warn, error }
+
   if (strict && typedArray.length && !array.length && !anyType) {
     const errorDetails = { interfaceName, property }
 
-    warn && errors.EmptyArray.warn(errorDetails)
-    error && errors.EmptyArray.throw(errorDetails)
+    errors.EmptyArray.warn(errorDetails)
+    errors.EmptyArray.throw(errorDetails)
   }
 
   array.map((el, i) => {
@@ -49,8 +54,8 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     if (!anyType && !validTypes.length && (trim || strict)) {
       const errorDetails = { interfaceName, property }
 
-      !trim && warn && errors.InvalidArrayElement.warn(errorDetails)
-      !trim && error && errors.InvalidArrayElement.throw(errorDetails)
+      !trim && errors.InvalidArrayElement.warn(errorDetails)
+      !trim && errors.InvalidArrayElement.throw(errorDetails)
 
       if (trim) {
         trimArrayElement({ array, index: i, element: el, property, interfaceName, warn })
@@ -84,11 +89,13 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
   const { [property]: propertyValue = arrayValue } = object
   const type = getType(propertyValue)
 
+  errors.InvalidTypeImplementation.init = { warn, error }
+
   if (type !== expectedType && expectedType !== VALID_TYPES.ANY) {
     const errorDetails = { property,  interfaceName,  type,  expectedType }
 
-    warn && errors.InvalidTypeImplementation.warn(errorDetails)
-    error && errors.InvalidTypeImplementation.throw(errorDetails)
+    errors.InvalidTypeImplementation.warn(errorDetails)
+    errors.InvalidTypeImplementation.throw(errorDetails)
     trim && trimProperty({ object, property, interfaceName, warn })
   }
 
@@ -100,6 +107,8 @@ export const implementType = ({ object = {},  property = {},  Interface = {}, ar
 export default function implement (Interface) {
   return object => {
     const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false } = {} } = Interface
+
+    errors.UnexpectedPropertyFound.init = { warn, error }
 
     for (let property in object) {
       if (object.hasOwnProperty(property)) {
@@ -115,8 +124,8 @@ export default function implement (Interface) {
           if (strict && !trim) {
             const errorDetails = { interfaceName, property }
 
-            warn && errors.UnexpectedPropertyFound.warn(errorDetails)
-            error && errors.UnexpectedPropertyFound.throw(errorDetails)
+            errors.UnexpectedPropertyFound.warn(errorDetails)
+            errors.UnexpectedPropertyFound.throw(errorDetails)
           } else if (trim) {
             trimProperty({ object, property, interfaceName, warn })
           }
