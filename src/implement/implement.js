@@ -46,6 +46,8 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
 
       if (trim) {
         errors.TrimArrayElementAlert.warn({ element: el, property, interfaceName })
+
+        // Replace array element with undefined and filter out below to ensure forEach iterates correctly
         array[i] = undefined
       }
 
@@ -62,13 +64,12 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
       } else {
         implementType({ arrayValue: el, Interface, arrayType: validType })
       }
-
-      return true
     })
 
     return el
   })
 
+  // Filter falsey values after forEach (rather than during) to ensure it loops correctly
   filterFalseyMutable({ array })
 }
 
