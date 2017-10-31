@@ -29,6 +29,7 @@
     "babel-preset-env": "1.6.1",
     "babel-register": "6.26.0",
     "chai": "4.1.2",
+    "chai-spies": "0.7.1",
     "mocha": "4.0.1",
     "webpack": "3.8.1",
     "yarn": "1.2.0"

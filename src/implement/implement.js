@@ -28,7 +28,7 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
     error && errors.EmptyArray.throw(errorDetails)
   }
 
-  array.forEach(el => {
+  array.forEach((el, i) => {
     const type = getType(el)
     const validTypes = typedArray.filter(item => item.type === type)
 
@@ -38,9 +38,12 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
       !trim && warn && errors.InvalidArrayElement.warn(errorDetails)
       !trim && error && errors.InvalidArrayElement.throw(errorDetails)
 
-      trim && warn && errors.TrimArrayElementAlert.warn({ property, interfaceName })
+      if (trim) {
+        errors.TrimArrayElementAlert.warn({ element: el, property, interfaceName })
+        array[i] = undefined
+      }
 
-      return trim ? undefined : el
+      return
     }
 
     validTypes.map(validType => {

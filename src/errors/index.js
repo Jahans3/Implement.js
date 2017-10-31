@@ -1,8 +1,8 @@
 import ErrorFactory from './factory'
 
 export const TrimArrayElementAlert = new ErrorFactory({
-  message: ({ property, interfaceName } = {}) => (`
-    Trimming element from array property: '${property}' on Interface(): '${interfaceName}'
+  message: ({ element, property, interfaceName } = {}) => (`
+    Trimming element: ${element} from array property: '${property}' on Interface(): '${interfaceName}'.
   `)
 })
 

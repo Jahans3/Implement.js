@@ -1,8 +1,11 @@
-import { expect } from 'chai'
+import chai, { expect } from 'chai'
+import spies from 'chai-spies'
 import { implementTypedArray, implementType, trimProperty, getType } from '../src/implement'
 import { VALID_TYPES } from '../src/constants'
-import implement, { Interface, type } from "../src";
+import implement, { Interface, type } from '../src'
+import * as errors from '../src/errors'
 
+chai.use(spies)
 
 describe('implement', () => {
   describe('trimProperty', () => {
@@ -71,6 +74,24 @@ describe('implement', () => {
         expect(err.message).to.include(expectedError)
         done()
       }
+    })
+
+    it('should remove array elements that don\'t match the Interface() when trim is enabled', done => {
+      const spy = chai.spy.on(errors.TrimArrayElementAlert, 'warn')
+      const seatsTypedArray = [type('string')]
+      const seatsProperty = 'seats'
+      const interfaceName = 'Car'
+      const Car = Interface(interfaceName)({
+        [seatsProperty]: type('array', seatsTypedArray)
+      }, { error: true, warn: false, trim: true })
+      const MyCar = { [seatsProperty]: ['hello', 5] }
+
+      implementTypedArray({ object: MyCar, Interface: Car, typedArray: seatsTypedArray, property: seatsProperty })
+
+      expect(spy).to.have.been.called()
+      expect(MyCar[seatsProperty][0]).to.equal('hello')
+      expect(MyCar[seatsProperty][1]).to.equal(undefined)
+      done()
     })
   })
 
