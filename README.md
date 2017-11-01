@@ -41,7 +41,7 @@ implement(Interface)(object) -> object
 Since `class` is just a constructor function waiting to be called and not truly an object, we cannot check if it implements a given `Interface`. Also, due to the dynamic nature of class properties, even once instantiated we cannot reliably implement interfaces against them.
 
 ### Interface
-Accepts an object, where all the keys are `type` objects, and returns an `Interface`. The Interface is to be used by `implement`.
+Accepts an object where all the keys are `type` objects, and returns an `Interface`. The Interface is to be used by `implement`.
 ```
 Interface(object[, options]) -> Interface
 ```
