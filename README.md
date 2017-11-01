@@ -44,7 +44,7 @@ Since `class` is just a constructor function waiting to be called and not truly 
 ### Interface
 Accepts an object where all the keys are `type` objects, and returns an `Interface`. The `Interface` is to be used by `implement`.
 ```
-Interface(object[, options]) -> Interface
+Interface(object[, options]) -> Interface object
 ```
 ###### Options
 ```
