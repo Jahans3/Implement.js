@@ -6,8 +6,16 @@
 * Errors and warnings are suppressed when `process.env.NODE_ENV === 'production'`
 
 ### Docs
-* [What is Implement.js](#what-is-implementjs?)
-
+* [What is Implement.js](#what-is-implementjs)
+* [API](#api)
+    * [implements](#implements)
+        * [A note on implementing classes](#a-note-on-implementing-classes)
+    * [Interface](#interface)
+        * [Options](#options)
+    * [type](#type)
+* [Examples](#examples)
+    * [Standard usage](#standard-usage)
+    * [Renaming and refactoring API responses](#renaming-and-refactoring-api-responses)
 ### What is Implement.js?
 Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on a class or object to check if it implements the given interface.
 ```
@@ -63,9 +71,6 @@ Interface(object[, options]) -> Interface
     rename: { seats: 'chairs' }
 }
 ```
-
-###### A note on Interface options behaviour
-A nested Interface will inherit the options of the Interface it is called on, meaning if a nested Interface has `strict: true` but the parent Interface has `strict: false` set, an error will not be thrown if the nested Interface implements a property not described on the nested Interface.
 
 ### Type
 Accepts a string matching any [JavaScript types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#Description), plus `‘array’` and `'any'`.
@@ -134,7 +139,7 @@ describe('CarService', () => {
 })
 ```
 
-##### Renaming and refactoring API response in conjunction with `redux-thunk`:
+##### Renaming and refactoring API responses:
 ```
 import { store } from ‘../store’
 import { fetchUsers } from ‘../services/userService’
