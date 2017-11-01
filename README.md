@@ -38,7 +38,7 @@ Accepts an `Interface` and an object, then checks to see if the object implement
 implement(Interface)(object) -> object
 ```
 
-###### A note on implementing classes
+###### Implementing classes
 Since `class` is just a constructor function waiting to be called and not truly an object, we cannot check if it implements a given `Interface`. Also, due to the dynamic nature of class properties, even once instantiated we cannot reliably implement interfaces against them.
 
 ### Interface
