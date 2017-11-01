@@ -60,7 +60,7 @@ Interface(object[, options]) -> Interface object
     // throws an error when Interface isn’t implemented - default: false
     error: true,
 
-    // warns when Interface isn’t implemented, provides stack trace - default: true
+    // warns when Interface isn’t implemented - default: true
     warn: false,
 
     // accepts an Interface to extend, the new Interface must also
