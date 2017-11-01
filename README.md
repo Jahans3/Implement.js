@@ -10,15 +10,14 @@ WIP
 TODO
 
 1. ~~Interface function~~
-2. enum type
-3. ~~extend Interfaces~~
-4. ~~unit tests~~
-5. ~~ensure original object reference is kept~~
-6. final docs
-7. reasons to use this library docs
-8. ~~alternate property names and ability to rename properties~~
-9. ~~delegate checking options (strict, trim, error, warn) to ErrorFactory - instantiate each error with options before it is used allowing us to fire and forget errors~~
-10. add more spies to tests to test warnings
+2. ~~extend Interfaces~~
+3. ~~unit tests~~
+4. ~~ensure original object reference is kept~~
+5. final docs
+6. reasons to use this library docs
+7. ~~alternate property names and ability to rename properties~~
+8. ~~delegate checking options (strict, trim, error, warn) to ErrorFactory - instantiate each error with options before it is used allowing us to fire and forget errors~~
+9. add more spies to tests to test warnings
 
 ### What is Implement.js?
 Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on a class or object to check if it implements the given interface.
