@@ -78,7 +78,7 @@ Accepts a string matching any [JavaScript types](https://developer.mozilla.org/e
 
 If `‘array’` is passed, a second argument can be passed denoting the type of the elements of the array, if none is passed then the types of the elements will not be checked. The second argument should be an array containing `type` objects.
 
-If `‘object’` is passed, a second argument can be passed containing an `Interface` for the object, if none is passed then the properties of the object will not be checked. The second argument should be an `Interface`. `‘object’` types match the options of the given Interface.
+If `‘object’` is passed, a second argument can be passed containing an `Interface` for the object, if none is passed then the properties of the object will not be checked. The second argument should be an `Interface`.
 ```
 type(string[, Array<type>|Interface]) -> Type
 ```
