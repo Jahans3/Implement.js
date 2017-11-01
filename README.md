@@ -32,7 +32,7 @@ const HelloIntroduction = implement(Introduction)(Hello) // throws an error!
 ## API
 
 ### Implements
-Accepts an `Interface` and an object, and checks to see if the object implements the given `Interface`.
+Accepts an `Interface` and an object, then checks to see if the object implements the given `Interface`.
 ```
 implement(Interface)(object) -> object
 ```
