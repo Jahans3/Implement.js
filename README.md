@@ -2,7 +2,7 @@
 
 * Create interfaces to enforce, remove, or rename properties of classes or objects
 * Use in testing to easily verify object shapes and property types
-* Effortlessly and safely parse API responses by renaming and reshaping objects
+* Effortlessly and safely parse API responses by renaming or removing properties
 * Errors and warnings are suppressed when `process.env.NODE_ENV === 'production'`
 
 ### What is Implement.js?
@@ -19,10 +19,6 @@ const Introduction = Interface({
 
 const HelloIntroduction = implement(Introduction)(Hello) // throws an error!
 ```
-
-### Why use Implements.js?
-
-todo
 
 ## API
 
