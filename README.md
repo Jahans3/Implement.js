@@ -38,7 +38,7 @@ const HelloIntroduction = implement(Introduction)(Hello) // throws an error!
 yarn install --save implement-js
 ```
 
-### Building
+### Build
 ```
 yarn build
 ```
