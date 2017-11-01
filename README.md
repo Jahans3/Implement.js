@@ -66,7 +66,7 @@ Interface(object[, options]) -> Interface object
     // accepts an Interface to extend, the new Interface must also implement the extended Interface
     extend: Interface,
 
-    // accepts an object of strings to rename the corresponding properties on the given array
+    // accepts an object where all property values are strings used to rename the corresponding properties on the given object
     rename: { seats: 'chairs' }
 }
 ```
