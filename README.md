@@ -1,6 +1,6 @@
 # Implement.js [![npm version](https://badge.fury.io/js/implement-js.svg)](https://badge.fury.io/js/implement-js) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
-* Create interfaces to enforce, remove, or rename properties of classes or objects
+* Create interfaces to enforce, remove, or rename properties of objects
 * Use in testing to easily verify object shapes and property types
 * Effortlessly and safely parse API responses by renaming or removing properties
 * Errors and warnings are suppressed when `process.env.NODE_ENV === 'production'`
@@ -15,7 +15,7 @@
     * [Standard usage](#standard-usage)
     * [Renaming and refactoring API responses](#renaming-and-refactoring-api-responses)
 ### What is Implement.js?
-Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on a class or object to check if it implements the given interface.
+Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on an object to check if it implements the given interface.
 ```
 const Hello = {
     greeting: 'hello'
@@ -32,15 +32,13 @@ const HelloIntroduction = implement(Introduction)(Hello) // throws an error!
 ## API
 
 ### Implements
-Accepts an `Interface` and a class or object, and checks to see if the object implements the given `Interface`.
+Accepts an `Interface` and a object, and checks to see if the object implements the given `Interface`.
 ```
-implement(Interface)(object|class) -> object|class
+implement(Interface)(object) -> object
 ```
 
 ###### A note on implementing classes
-Since JavaScript classes aren't true classes and most of the properties declared within aren't defined until the class is instantiated we can only consistently check `function` properties on classes. Once [ES7 Property Initializers](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) land we will be able to check if static properties declared using that syntax are implemented correctly.
-
-Alternatively, you could pass an instantiated class, which is just a function object. However this may not always work unless every property is declared and defined inside the constructor, as properties declared later on in the class lifecycle cannot reliably be accounted for.
+Since `class` is just a constructor function waiting to be called and not truly an object, we cannot check if it implements a given `Interface`. Also, due to the dynamic nature of class properties, even once instantiated we cannot reliably implement interfaces against them.
 
 ### Interface
 Accepts an object, where all the keys are `type` objects, and returns an `Interface`. The Interface is to be used by `implement`.
