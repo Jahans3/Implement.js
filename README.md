@@ -49,7 +49,9 @@ Interface(object[, options]) -> Interface object
 ###### Options
 ```
 {
-    // when true, errors and warnings are triggered when properties other than those on the Interface are found, is suppressed if trim is set to true - default: false
+    // when true, errors and warnings are triggered when properties
+    // other than those on the Interface are found, is suppressed if
+    // trim is set to true - default: false
     strict: true,
 
     // remove methods that don’t match the Interface - default: false
