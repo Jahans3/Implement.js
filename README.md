@@ -1,22 +1,9 @@
 # Implement.js [![npm version](https://badge.fury.io/js/implement-js.svg)](https://badge.fury.io/js/implement-js) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
-WIP
-
-* Create Java-like interfaces for classes or objects
+* Create interfaces to enforce, remove, or rename properties of classes or objects
 * Use in testing to easily verify object shapes and property types
 * Effortlessly and safely parse API responses by renaming and reshaping objects
 * Errors and warnings are suppressed when `process.env.NODE_ENV === 'production'`
-
-TODO
-
-1. ~~Interface function~~
-2. ~~extend Interfaces~~
-3. ~~unit tests~~
-4. ~~ensure original object reference is kept~~
-5. final docs
-6. reasons to use this library docs
-7. ~~alternate property names and ability to rename properties~~
-8. ~~delegate checking options (strict, trim, error, warn) to ErrorFactory - instantiate each error with options before it is used allowing us to fire and forget errors~~
 
 ### What is Implement.js?
 Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on a class or object to check if it implements the given interface.
