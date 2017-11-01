@@ -76,9 +76,9 @@ Interface(object[, options]) -> Interface object
 ### Type
 Accepts a string matching any [JavaScript types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#Description), plus `‘array’` and `'any'`.
 
-If the string `‘array’` is passed, a second argument can be passed denoting the type of the elements of the array, if none is passed then the types of the elements will not be checked. The second argument should be an array containing `type` objects.
+If `‘array’` is passed, a second argument can be passed denoting the type of the elements of the array, if none is passed then the types of the elements will not be checked. The second argument should be an array containing `type` objects.
 
-If the string `‘object’` is passed, a second argument can be passed containing an `Interface` for the object, if none is passed then the properties of the object will not be checked. The second argument should be an `Interface`. `‘object’` types match the options of the given Interface.
+If `‘object’` is passed, a second argument can be passed containing an `Interface` for the object, if none is passed then the properties of the object will not be checked. The second argument should be an `Interface`. `‘object’` types match the options of the given Interface.
 ```
 type(string[, Array<type>|Interface]) -> Type
 ```
