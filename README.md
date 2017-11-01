@@ -5,6 +5,9 @@
 * Effortlessly and safely parse API responses by renaming or removing properties
 * Errors and warnings are suppressed when `process.env.NODE_ENV === 'production'`
 
+### Docs
+* [What is Implement.js](#what-is-implement.js?)
+
 ### What is Implement.js?
 Implement.js is library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on a class or object to check if it implements the given interface.
 ```
