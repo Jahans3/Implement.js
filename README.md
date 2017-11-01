@@ -11,6 +11,7 @@
     * [implements](#implements)
     * [Interface](#interface)
     * [type](#type)
+    * [ES6 Modules / CommonJS](#es6-modules--commonjs)
 * [Examples](#examples)
     * [Standard usage](#standard-usage)
     * [Renaming and refactoring API responses](#renaming-and-refactoring-api-responses)
@@ -76,6 +77,17 @@ If the string `‘array’` is passed, a second argument can be passed denoting 
 If the string `‘object’` is passed, a second argument can be passed denoting an Interface for the object, if none is passed then the properties of the object will not be checked. The second argument should be an `Interface`. `‘object’` types match the options of the given Interface.
 ```
 type(string[, Array<type>|Interface]) -> Type
+```
+
+### ES6 Modules / CommonJS
+```
+// ES6
+import implement, { Interface, type } from 'implement-js'
+
+// CommonJS modules
+const implementjs = require('implement-js')
+const implement = implementjs.default
+const { Interface, type } = implementjs
 ```
 
 ## Examples
