@@ -1,13 +1,11 @@
 {
   "name": "implement-js",
-  "version": "0.0.1",
+  "version": "0.0.1-beta1",
   "description": "JavaScript interface library",
   "main": "lib/implement.js",
   "scripts": {
     "test": "mocha ./test/index.js --require babel-register",
-    "build": "webpack --config webpack.config.js",
-    "build-production": "NODE_ENV='production' webpack --config webpack.config.js",
-    "postinstall": "rm -rf lib/ && webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js"
   },
   "repository": "git+https://github.com/Jahans3/implement.git",
   "keywords": [
