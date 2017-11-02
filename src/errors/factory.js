@@ -28,12 +28,12 @@ export default class ErrorFactory {
     const messageType = typeof message
 
     if (messageType === 'string') {
-      return this._message = () => message
+      this._message = () => message
     } else if (messageType === 'function' && typeof message() === 'string') {
-      return this._message = message
+      this._message = message
+    } else {
+      ErrorFactory._error(messageType)
     }
-
-    ErrorFactory._error(messageType)
   }
 
   static _error (type = '') {
