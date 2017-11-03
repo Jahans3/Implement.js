@@ -41,14 +41,10 @@ export default class ErrorFactory {
   }
 
   warn (...args) {
-    if (this.shouldWarn) {
-      warning(false, this.message(...args))
-    }
+    warning(!this.shouldWarn, this.message(...args))
   }
 
   throw (...args) {
-    if (this.shouldThrow) {
-      invariant(false, this.message(...args))
-    }
+    invariant(!this.shouldThrow, this.message(...args))
   }
 }
