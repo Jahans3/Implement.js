@@ -10,7 +10,7 @@ export const renameProperty = ({ Interface, property, newName }) => {
   return newName
 }
 
-export const shallowMatchKeys = ({ Interface, object, warn = true, error = false } = {}) => {
+export const shallowMatchKeys = ({ Interface, object, warn = true, error = false }) => {
   const interfaceKeys = Object.keys(Interface)
   const objectKeys = Object.keys(object)
   const propertiesNotImplemented = []
@@ -32,13 +32,13 @@ export const shallowMatchKeys = ({ Interface, object, warn = true, error = false
   }
 }
 
-export const filterFalseyMutable = ({ array = [] } = {}) => {
+export const filterFalseyMutable = ({ array = [] }) => {
   array.forEach((el, i) => {
     if (!el) array.splice(i, 1)
   })
 }
 
-export const trimArrayElement = ({ array = [], index, element, property, interfaceName, warn = true } = {}) => {
+export const trimArrayElement = ({ array = [], index, element, property, interfaceName, warn = true }) => {
   errors.TrimArrayElementAlert.options = { warn }
   errors.TrimArrayElementAlert.warn({ element, property, interfaceName })
 
@@ -47,7 +47,7 @@ export const trimArrayElement = ({ array = [], index, element, property, interfa
   filterFalseyMutable({ array })
 }
 
-export const trimProperty = ({ object, property, interfaceName, warn = true } = {}) => {
+export const trimProperty = ({ object, property, interfaceName, warn = true }) => {
   errors.TrimAlert.options = { warn }
   errors.TrimAlert.warn({ property, interfaceName })
 
@@ -60,7 +60,7 @@ export const getType = property => {
   return typeof property
 }
 
-export const implementTypedArray = ({ object = {}, typedArray = [], Interface, property } = {}) => {
+export const implementTypedArray = ({ object = {}, typedArray = [], Interface, property }) => {
   const {
     [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, strict = false, trim = false } = {},
     [IMPLEMENT_TYPES.NAME]: interfaceName
@@ -109,11 +109,11 @@ export const implementTypedArray = ({ object = {}, typedArray = [], Interface, p
   })
 }
 
-export const implementType = ({ object = {}, property = {}, Interface = {}, arrayType = {}, arrayValue = {} } = {}) => {
+export const implementType = ({ object = {}, property = {}, Interface = {}, arrayType = {}, arrayValue = {} }) => {
   const {
     [property]: { type: expectedType, array: typedArray } = arrayType,
     [IMPLEMENT_TYPES.NAME]: interfaceName,
-    [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, trim = false } = {}
+    [IMPLEMENT_TYPES.OPTIONS]: { warn = true, error = false, trim = false }
   } = Interface
   const { [property]: propertyValue = arrayValue } = object
   const type = getType(propertyValue)
@@ -136,7 +136,7 @@ export const implementType = ({ object = {}, property = {}, Interface = {}, arra
 
 export default function implement (Interface) {
   return object => {
-    const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false, rename = {} } = {} } = Interface
+    const { [IMPLEMENT_TYPES.OPTIONS]: { error = false, warn = true, strict = false, trim = false, rename = {} } } = Interface
 
     errors.UnexpectedPropertyFound.options = { warn, error }
 
