@@ -1,6 +1,5 @@
-import { IMPLEMENT_TYPES} from '../constants'
+import { IMPLEMENT_TYPES, VALID_TYPES_LIST } from '../constants'
 import * as errors from '../errors'
-import { VALID_TYPES_LIST } from '../constants'
 
 export const isValidType = ({ type }) => {
   const validType = VALID_TYPES_LIST.find(t => t === type)
@@ -12,7 +11,7 @@ export const isValidType = ({ type }) => {
   return false
 }
 
-export const typeObject = ({ type, array = false, shape: Interface = false } = {}) => ({
+export const typeObject = ({ type, array = false, shape: Interface = false }) => ({
   type,
   array,
   Interface,
