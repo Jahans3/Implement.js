@@ -3,7 +3,7 @@ webpack.config.js
 .gitignore
 
 # Directories
-.src/
+src/
 node_modules/
 !lib/
 test/

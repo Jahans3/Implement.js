@@ -1,8 +1,8 @@
 {
   "name": "implement-js",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "JavaScript interface library",
-  "main": "lib/implement.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha ./test/index.js --require babel-register",
     "build": "webpack --config webpack.config.js"
