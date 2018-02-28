@@ -18,7 +18,7 @@ export const typeObject = ({ type, array = false, shape: Interface = false }) =>
   [IMPLEMENT_TYPES.TYPE]: true
 })
 
-export default (type, shape) => {
+export default function type (type, shape) {
   const validType = isValidType({ type })
 
   errors.InvalidType.options = { error: true }

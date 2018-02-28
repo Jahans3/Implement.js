@@ -22,35 +22,37 @@ export const extend = ({ Interface = {}, ExtendedInterface = {}, interfaceName }
   return NextInterface
 }
 
-export default (interfaceName = uuid()) => (
-  Interface = {},
-  { strict = false, error = false, warn = true, trim = false, extend: ExtendedInterface, rename = {} } = {}
-) => {
-  errors.EmptyInterface.options = { error: true }
-  errors.InvalidInterface.options = { error: true }
+export default function Interface (interfaceName = uuid()) {
+  return (
+    Interface = {},
+    { strict = false, error = false, warn = true, trim = false, extend: ExtendedInterface, rename = {} } = {}
+  ) => {
+    errors.EmptyInterface.options = { error: true }
+    errors.InvalidInterface.options = { error: true }
 
-  if (!Object.keys(Interface).length) {
-    errors.EmptyInterface.throw()
-  }
+    if (!Object.keys(Interface).length) {
+      errors.EmptyInterface.throw()
+    }
 
-  if (ExtendedInterface) {
-    Interface = extend({ Interface, ExtendedInterface, interfaceName })
-  }
+    if (ExtendedInterface) {
+      Interface = extend({ Interface, ExtendedInterface, interfaceName })
+    }
 
-  for (let property in Interface) {
-    if (Interface.hasOwnProperty(property)) {
-      const { [property]: { [IMPLEMENT_TYPES.TYPE]: isType = false } = {} } = Interface
+    for (let property in Interface) {
+      if (Interface.hasOwnProperty(property)) {
+        const { [property]: { [IMPLEMENT_TYPES.TYPE]: isType = false } = {} } = Interface
 
-      // Only allow valid type objects as Interface properties
-      if (!isType) {
-        errors.InvalidInterface.throw()
+        // Only allow valid type objects as Interface properties
+        if (!isType) {
+          errors.InvalidInterface.throw()
+        }
       }
     }
+
+    Interface[IMPLEMENT_TYPES.INTERFACE] = true
+    Interface[IMPLEMENT_TYPES.OPTIONS] = { strict, error, warn, trim, rename }
+    Interface[IMPLEMENT_TYPES.NAME] = interfaceName
+
+    return Interface
   }
-
-  Interface[IMPLEMENT_TYPES.INTERFACE] = true
-  Interface[IMPLEMENT_TYPES.OPTIONS] = { strict, error, warn, trim, rename }
-  Interface[IMPLEMENT_TYPES.NAME] = interfaceName
-
-  return Interface
 }
