@@ -54,7 +54,7 @@ describe('type', () => {
       }
     })
 
-    it('should return a type object when it has an arity of 1 and is given a valid type', done => {
+    it('should return a type object when it is given a valid type', done => {
       const validType = 'string'
       const typeObject = type(validType)
 
