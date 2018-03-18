@@ -18,7 +18,9 @@
     * [Renaming and refactoring API responses](#renaming-and-refactoring-api-responses)
 
 ## What is Implement.js?
-Implement.js is a library that attempts to bring interfaces to JavaScript. Simply define an interface using `Interface` and call `implement` on an object to check if it implements the given interface.
+Implement.js is a library that attempts to bring interfaces to JavaScript in the form of *runtime* type-checking.
+
+Simply define an interface using `Interface` and call `implement` on an object to check if it implements the given interface.
 ```
 const Hello = {
     greeting: 'hello'
