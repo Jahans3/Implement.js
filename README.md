@@ -26,7 +26,7 @@ const Hello = {
     greeting: 'hello'
     wave () {}
 }
-const Introduction = Interface({
+const Introduction = Interface('Introduction')({
     greeting: type('string')
     handshake: type('function')
 }, { error: true })
@@ -57,9 +57,9 @@ implement(Interface)(object) -> object
 Since `class` is just a constructor function waiting to be called and not truly an object, we cannot check if it implements a given `Interface`. Also, due to the dynamic nature of class properties, even once instantiated we cannot reliably implement interfaces against them.
 
 ### Interface
-Accepts an object where all the keys are `type` objects, and returns an `Interface`. The `Interface` is to be used by `implement`.
+Takes a string to be used as a name, if none is provided it generates a uuid, returns a function that accepts an object where all the keys are `type` objects, and returns an `Interface`. The `Interface` is to be used by `implement`.
 ```
-Interface(object[, options]) -> Interface object
+Interface([name])(object[, options]) -> Interface object
 ```
 ###### Options
 ```
@@ -115,18 +115,18 @@ const { Interface, type } = implementjs
 ```
 import implement, { Interface, type } from 'implement-js'
 
-const Passenger = Interface({
+const Passenger = Interface('Passenger)({
     name: type(‘string’),
     height: type(‘number’)
 })
 
-const ChildPassenger = Interface({
+const ChildPassenger = Interface('ChildPassenger')({
     hasBabySeat: type(‘boolean’)
 }, {
     extend: Passenger
 })
 
-const Car = Interface({
+const Car = Interface('Car')({
     speed: type(’number’),
     passengers: type(‘array’, [type('object', Passenger), type('object', ChildPassenger)]),
     beep: type(‘function’)
@@ -172,12 +172,12 @@ import { store } from ‘../store’
 import { fetchUsers } from ‘../services/userService’
 import implement, { Interface, type } from 'implement-js'
 
-const User = Interface({
+const User = Interface('User')({
     name: type(‘string’),
     id: type(‘number’)
 }, { trim: true })
 
-const Users = Interface({
+const Users = Interface('Users')({
     users: type(‘array’, [type('object', User)])
 }, {
     trim: true,
