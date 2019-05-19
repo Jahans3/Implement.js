@@ -21,7 +21,7 @@
 Implement.js is a library that attempts to bring interfaces to JavaScript in the form of *runtime* type-checking.
 
 Simply define an interface using `Interface` and call `implement` on an object to check if it implements the given interface.
-```
+```javascript
 const Hello = {
     greeting: 'hello'
     wave () {}
@@ -49,7 +49,7 @@ yarn build
 
 ### Implement
 Accepts an `Interface` and an object, then checks to see if the object implements the given `Interface`.
-```
+```javascript
 implement(Interface)(object) -> object
 ```
 
@@ -58,11 +58,11 @@ Since `class` is just a constructor function waiting to be called and not truly 
 
 ### Interface
 Takes a string to be used as a name, if none is provided it generates a uuid, returns a function that accepts an object where all the keys are `type` objects, and returns an `Interface`. The `Interface` is to be used by `implement`.
-```
+```javascript
 Interface([name])(object[, options]) -> Interface object
 ```
 ###### Options
-```
+```javascript
 {
     // when true, errors and warnings are triggered when properties
     // other than those on the Interface are found, is suppressed if
@@ -94,12 +94,12 @@ Accepts a string matching any [JavaScript types](https://developer.mozilla.org/e
 If `‘array’` is passed, a second argument can be passed denoting the type of the elements of the array, if none is passed then the types of the elements will not be checked. The second argument should be an array containing `type` objects.
 
 If `‘object’` is passed, a second argument can be passed containing an `Interface` for the object, if none is passed then the properties of the object will not be checked. The second argument should be an `Interface`.
-```
+```javascript
 type(string[, Array<type>|Interface]) -> Type
 ```
 
 ### ES6 Modules / CommonJS
-```
+```javascript
 // ES6
 import implement, { Interface, type } from 'implement-js'
 
@@ -112,10 +112,10 @@ const { Interface, type } = implementjs
 ## Examples
 
 ##### Standard usage
-```
+```javascript
 import implement, { Interface, type } from 'implement-js'
 
-const Passenger = Interface('Passenger)({
+const Passenger = Interface('Passenger')({
     name: type(‘string’),
     height: type(‘number’)
 })
@@ -147,7 +147,7 @@ const AnotherCar = implement(Car)({
 ```
 
 ##### Unit tests
-```
+```javascript
 import implement from 'implement-js'
 import CarService from '../services/CarService'
 import { Vehicle } from '../Interfaces'
@@ -167,7 +167,7 @@ describe('CarService', () => {
 ```
 
 ##### Renaming and refactoring API responses:
-```
+```javascript
 import { store } from ‘../store’
 import { fetchUsers } from ‘../services/userService’
 import implement, { Interface, type } from 'implement-js'
