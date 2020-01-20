@@ -36,7 +36,7 @@
     "eslint-plugin-standard": "3.0.1",
     "mocha": "4.0.1",
     "webpack": "3.8.1",
-    "yarn": "1.2.0"
+    "yarn": "1.17.3"
   },
   "dependencies": {
     "invariant": "2.2.2",
