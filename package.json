@@ -5,7 +5,8 @@
   "main": "lib/implement.js",
   "scripts": {
     "test": "mocha ./test/index.js --require babel-register",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "release": "yarn build && yarn publish"
   },
   "repository": "git+https://github.com/Jahans3/implement.js.git",
   "keywords": [
