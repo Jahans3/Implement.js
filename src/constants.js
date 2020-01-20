@@ -23,7 +23,8 @@ export const VALID_TYPES = {
   FUNC: 'function',
   BOOL: 'boolean',
   ARRAY: 'array',
-  ANY: 'any'
+  ANY: 'any',
+  BIGINT: 'bigint'
 }
 
 export const VALID_TYPES_LIST = (() => {
