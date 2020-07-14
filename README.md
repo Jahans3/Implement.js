@@ -23,11 +23,11 @@ Implement.js is a library that attempts to bring interfaces to JavaScript in the
 Simply define an interface using `Interface` and call `implement` on an object to check if it implements the given interface.
 ```javascript
 const Hello = {
-    greeting: 'hello'
+    greeting: 'hello',
     wave () {}
 }
 const Introduction = Interface('Introduction')({
-    greeting: type('string')
+    greeting: type('string'),
     handshake: type('function')
 }, { error: true })
 
@@ -116,20 +116,20 @@ const { Interface, type } = implementjs
 import implement, { Interface, type } from 'implement-js'
 
 const Passenger = Interface('Passenger')({
-    name: type(‘string’),
-    height: type(‘number’)
+    name: type('string'),
+    height: type('number')
 })
 
 const ChildPassenger = Interface('ChildPassenger')({
-    hasBabySeat: type(‘boolean’)
+    hasBabySeat: type('boolean')
 }, {
     extend: Passenger
 })
 
 const Car = Interface('Car')({
-    speed: type(’number’),
-    passengers: type(‘array’, [type('object', Passenger), type('object', ChildPassenger)]),
-    beep: type(‘function’)
+    speed: type('number'),
+    passengers: type('array', [type('object', Passenger), type('object', ChildPassenger)]),
+    beep: type('function')
 }, { error: true })
 
 // Successful implementation
@@ -168,24 +168,23 @@ describe('CarService', () => {
 
 ##### Renaming and refactoring API responses:
 ```javascript
-import { store } from ‘../store’
-import { fetchUsers } from ‘../services/userService’
+import { fetchUsers } from '../services/userService'
 import implement, { Interface, type } from 'implement-js'
 
 const User = Interface('User')({
-    name: type(‘string’),
-    id: type(‘number’)
+    name: type('string'),
+    id: type('number')
 }, { trim: true })
 
 const Users = Interface('Users')({
-    users: type(‘array’, [type('object', User)])
+    users: type('array', [type('object', User)])
 }, {
     trim: true,
     rename: { API_RESPONSE_USERS_LIST: 'users' }
 })
 
 const updateUsers = () => async dispatch => {
-    dispatch(fetchUsersBegin())
+    dispatch(updateUsersBegin())
 
     try {
         const users = await fetchUsers()
